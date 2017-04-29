@@ -1,0 +1,49 @@
+package Data;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+public class Pagina 
+{ 
+	private ArrayList<String> esp;
+	private ArrayList<String> eng;
+	private static PrintWriter out;
+	public Pagina(String name)	
+	{
+		
+		try {
+			out = new PrintWriter(name);
+			esp = new ArrayList();
+			eng = new ArrayList();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void addEspSentence(String espa)
+	{
+		esp.add(espa);
+	}
+	
+	public void addEngSentence(String engl)
+	{
+		eng.add(engl);
+	}
+	
+	public ArrayList<String> getEsp()
+	{
+		return esp;
+	}
+	
+	public ArrayList<String> getEng()
+	{
+		return eng;
+	}
+	
+	public void cerrarOut()
+	{
+		out.close();
+	}
+}

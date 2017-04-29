@@ -13,3 +13,4 @@ Begining of words sometimes have format like
 ## XXXX
 #### XXXX
 Cases -> A lot, don't know exactly how much
+Maybe a solution regex (FSA)

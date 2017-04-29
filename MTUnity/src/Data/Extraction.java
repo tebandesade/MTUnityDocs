@@ -5,28 +5,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import javax.swing.DebugGraphics;
 
 public class Extraction 
 {
-	private static final String TESTFILE = new File("res/test/testInput.txt").getAbsolutePath() ;
+	private static final File TESTFILE = new File("res/test/testInput.txt");
 
 	private static final File DIRECTORIOREPO = new File ("res/repo/manual/");
 
 	private static BufferedReader br ;
 	private static int debugInit = 0;
+	private ArrayList<Pagina> paginas;
 
-	public Extraction(File test)
+	public Extraction()
 	{
-
+		//LeerArchivos();
+		LeerArchivo(TESTFILE);
 	}
 
 	//Add File Test to parameters
 	public static void LeerArchivo(File file)
 	{
+		boolean ingles = true;
+		
+		Pagina actual = new Pagina(file.getName());
 		try {
 			br = new BufferedReader(new FileReader(	file));
 			String linea =  br.readLine();
@@ -35,10 +42,21 @@ public class Extraction
 
 				if(linea.contains("msgid")|| linea.contains("msgstr"))
 				{
+					
 					String text = auxSplit(linea);
 					if(!text.equals("noEsMayorA2"))
 					{
-						System.out.println(text);
+						if(ingles)
+						{
+							ingles = false;
+							actual.addEngSentence(text);
+						}
+						else
+						{
+							ingles=true;
+							actual.addEspSentence(text);
+						}
+						//System.out.println(text);
 					}
 				}
 
@@ -51,6 +69,7 @@ public class Extraction
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		actual.cerrarOut();
 	}
 
 
@@ -96,15 +115,7 @@ public class Extraction
 
 	public static void main (String[] args)
 	{
-
-		/*
-		String test ="msgid \"\"";
-		String test2 ="msgid \"Animation Layers\"" ;
-		String test3 ="msgstr \"Animation Layers\"" ;
-		auxSplit(test);
-		 */
-		//LeerArchivo();
-		LeerArchivos();
+		new Extraction();
 	}
 
 
@@ -144,6 +155,8 @@ public class Extraction
 		int tam = linea.length();  
 		int indexL = tam-1;
 		linea = linea.substring(1, indexL);
+		
+		//System.out.println(linea);
 		return linea;
 	}
 

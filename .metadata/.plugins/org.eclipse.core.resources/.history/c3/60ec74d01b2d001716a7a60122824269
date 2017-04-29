@@ -1,0 +1,11 @@
+package Data;
+
+public class Pair 
+{
+	private String[] oracionesEng;
+	private String[] oracionesEsp;
+	public Pair(String ingles, String esp)
+	{
+		
+	}
+}
