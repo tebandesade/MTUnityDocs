@@ -1,0 +1,10 @@
+Beginning Words
+~  //in other words, it didn't begin with msgid|msgstr 
+Cases found = 2608
+Fixed --> Index that begins with either word
+----------------------------------------------------------------------
+The platform gives each "row" msg between " " (Like string type of data"
+Cases -> All
+Fixed -> Removes everything before the opening "
+         "  " (Result format like this) then gets everything between first
+         index and lastindex-1

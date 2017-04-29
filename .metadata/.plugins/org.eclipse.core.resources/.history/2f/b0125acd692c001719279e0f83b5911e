@@ -1,0 +1,23 @@
+package Data;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+public class Extraction 
+{
+	private static final String TESTFILE = "res/testinput.txt";
+	
+	private BufferedReader br ;
+	
+	public Extraction()
+	{
+		br = new BufferedReader(new FileReader(TESTFILE));
+	}
+	
+	public static void main (String[] args)
+	{
+		System.out.println(TESTFILE);
+	}
+}
+
+

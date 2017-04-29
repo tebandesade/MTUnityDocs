@@ -1,0 +1,10 @@
+package Data;
+
+public class Pair 
+{
+
+	public Pair(String ingles, String esp)
+	{
+		
+	}
+}

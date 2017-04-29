@@ -1,0 +1,15 @@
+package Data;
+
+public class Extraction 
+{
+	private static final String TESTFILE = "res/testinput.txt";
+	
+	private BufferedReader br ;
+	
+	public static void main (String[] args)
+	{
+		System.out.println(TESTFILE);
+	}
+}
+
+

@@ -1,0 +1,13 @@
+package Data;
+
+public class Pagina 
+{ 
+	ArrayList<String> esp;
+	ArrayList<String> eng;
+	
+	public Pagina()	
+	{
+		esp = new ArrayList();
+		eng = new AraryList();
+	}
+}
