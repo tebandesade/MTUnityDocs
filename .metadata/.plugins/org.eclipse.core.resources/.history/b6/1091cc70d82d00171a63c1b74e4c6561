@@ -1,0 +1,26 @@
+Beginning Words
+~  //in other words, it didn't begin with msgid|msgstr 
+Cases found = 2608
+FIXED --> Index that begins with either word
+----------------------------------------------------------------------
+The platform gives each "row" msg between " " (Like string type of data"
+Cases -> All
+FIXED -> Removes everything before the opening "
+         "  " (Result format like this) then gets everything between first
+         index and lastindex-1
+-----------------------------------------------------------------------
+Begining of words sometimes have format like
+## XXXX
+#### XXXX
+Cases -> A lot, don't know exactly how much
+Maybe a solution regex (FSA)
+
+Thought: If this changes, the whole thing will changed when trying to map
+the data again I.e if I want to put this to help my workflow. (THEORY)
+------------------------------------------------------------------------
+Size of output arrays different in some cases:
+For the moment have true or false if size differs and its size
+Would have to debug carefully
+WorkAround -> 
+	Skip it. Check how many it differs, check how many it doesn't
+	According to a checker there are total 1349 pages, sizes of 308 don't match

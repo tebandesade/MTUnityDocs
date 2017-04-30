@@ -15,31 +15,41 @@ import javax.swing.DebugGraphics;
 public class Extraction 
 {
 	private static final File TESTFILE = new File("res/test/testInput.txt");
-
+	private static final File TESTFILEB6 = new File("res/test/bug6.txt");
 	private static final File DIRECTORIOREPO = new File ("res/repo/manual/");
 
 	private static BufferedReader br ;
 	private static int debugInit = 0;
+	private static int debugGlobal = 0;
 	private ArrayList<Pagina> paginas;
+	
+	private static boolean helpBug6 =true;
+	
 
 	public Extraction()
 	{
-		//LeerArchivos();
-		LeerArchivo(TESTFILE);
+		LeerArchivos();
+		
+		//Debug count variables	
+		//System.out.println("GLOBAL: "+ debugGlobal);
+		//System.err.println("Error: "+ debugInit);
+		//To debug files
+		//LeerArchivo(TESTFILE);
+		
+		//LeerArchivo(TESTFILEB6,"pruebaB6");
 	}
 
 	//Add File Test to parameters
-	public static void LeerArchivo(File file)
+	public static void LeerArchivo(File file,String nombreArchivo)
 	{
 		boolean ingles = true;
 		
-		Pagina actual = new Pagina(file.getName());
+		Pagina actual = new Pagina(nombreArchivo);
 		try {
 			br = new BufferedReader(new FileReader(	file));
 			String linea =  br.readLine();
 			while(linea!=null)
 			{
-
 				if(linea.contains("msgid")|| linea.contains("msgstr"))
 				{
 					
@@ -69,8 +79,43 @@ public class Extraction
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		actual.cerrarOut();
+		//OUTPUT FILES
+		//actual.cerrarOut();
+		
+		
+		if(actual.getEng().size()==actual.getEsp().size())	{
+			System.out.println("true "+actual.getEng().size());
+			debugGlobal++;
+			/*
+			int mayor = Math.min(actual.getEng().size(), actual.getEsp().size());
+			for(int i = 0; i<mayor;i++)
+			{
+				System.err.println("Eng: "+ actual.getEng().get(i));
+				System.err.println("Esp: "+ actual.getEsp().get(i));
+			}
+			*/
+		}
+		else
+		{
+			System.err.println("false "+"One: "+actual.getEng().size()+" Two: "+actual.getEsp().size());
+			System.err.println("Name of the page with size errors: "+actual.giveName());
+			/*
+			int mayor = Math.min(actual.getEng().size(), actual.getEsp().size());
+			for(int i = 0; i<mayor;i++)
+			{
+				System.err.println("Eng: "+ actual.getEng().get(i));
+				System.err.println("Esp: "+ actual.getEsp().get(i));
+			}
+			*/
+			
+			
+			
+			//In here we have two debug int counts that will allow us to check how many red (problem) pages
+			debugInit++;
+			debugGlobal++;
+		}
 	}
+	
 
 
 	//Reads all Spanish Files from all directories
@@ -101,7 +146,9 @@ public class Extraction
 					File index2 = index.listFiles()[j];
 					if(index2.getName().equalsIgnoreCase("es.po"))
 					{
-						LeerArchivo(index2);
+						//Passes the current file but gets the name of the Parent directory
+						//Parent directory is the Page's name
+						LeerArchivo(index2,index.getName());
 						count++;
 						//System.out.println(index2.getName());
 					}
@@ -136,7 +183,12 @@ public class Extraction
 		{
 			linea = linea.substring(test, linea.length());
 		}
+		
+		//Have to fix bug 6 would put flag and see if it works
+		//MakeGlobalFlag
 		String temp = linea.replace(lang, "");
+		
+		// to check if msgid ""
 		if(temp.length()>2)
 		{
 			//System.out.println("Es mayor a 2 "+ temp);
@@ -146,7 +198,25 @@ public class Extraction
 		else
 		{
 			//System.out.println("No es mayor a 2 " + temp);
-			return "noEsMayorA2";
+			if(helpBug6 && lang.contains("msgid"))
+			{
+				helpBug6 = false;
+				return "noEsMayorA2";
+			}
+			else if(helpBug6 && lang.contains("msgstr"))
+			{
+			    return "";
+			}
+			else if (!helpBug6 && lang.contains("msgstr"))
+			{
+				helpBug6 =true;
+				return "noEsMayorA2";
+			}
+			else 
+			{
+				return "noEsMayorA2";
+			}
+		
 		}
 	}
 
@@ -159,6 +229,7 @@ public class Extraction
 		//System.out.println(linea);
 		return linea;
 	}
+	
 
 }
 
