@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: xbox360-titleupdates.edit.md:19
+msgid "Title Updates"
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "asdfgas"
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "###How to build a title update"
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "To create a title update follow the \"Title Updates on Xbox 360\" page in the Xbox 360 SDK Documentation."
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "1. Store the output of your original game build after release."
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "1. Use the same Unity version for the update (or an updated one that has been approved)."
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "1. If updating scripts:"
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "    1. Include the updated *.def and *.mono files."
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "    1. If using the same Unity version for the update, only the _Assembly-*_ files need to be updated."
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "    1. If code stripping was enabled in the original game build, all assemblies will most likely need to be updated (with the exception of tiny bigfixes)."
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "    1. If title update contains a lot of new code and forces the in-memory size of any assembly to decrease/increase below/above the next multiple of 64KB, the relocation address of multiple assemblies will change and all assemblies will need to be updated."
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "1. If updating assets:"
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "    1. Build them with _UncompressedAssetBundle_ flag."
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "    1. Add custom code to call _AssetBundle.CreateFromFile_."
+msgstr ""
+
+#: xbox360-titleupdates.edit.md:19
+msgid "    1. Load asset bundles from the _UPDATE:_ mount that will become available when the title update is applied."
+msgstr ""

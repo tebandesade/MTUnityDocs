@@ -10,4 +10,7 @@
 <fullyQualifiedTypeName name="java.io.PrintWriter"/>
 <fullyQualifiedTypeName name="Data.Pagina"/>
 <fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.StanfordCoreNLP"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.Annotation"/>
 </qualifiedTypeNameHistroy>

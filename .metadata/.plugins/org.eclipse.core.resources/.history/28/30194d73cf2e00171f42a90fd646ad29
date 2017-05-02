@@ -1,0 +1,12 @@
+package MT;
+
+import java.util.Properties;
+
+public class CoreNLP 
+{
+	public CoreNLP()
+	{
+		 Properties props = new Properties();
+		 
+	}
+}

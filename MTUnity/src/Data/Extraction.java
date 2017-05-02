@@ -21,22 +21,29 @@ public class Extraction
 	private static BufferedReader br ;
 	private static int debugInit = 0;
 	private static int debugGlobal = 0;
-	private ArrayList<Pagina> paginas;
+	private static ArrayList<Pagina> paginas;
 	
 	private static boolean helpBug6 =true;
 	
 
 	public Extraction()
 	{
-		LeerArchivos();
+		//LeerArchivos();
 		
 		//Debug count variables	
 		//System.out.println("GLOBAL: "+ debugGlobal);
 		//System.err.println("Error: "+ debugInit);
 		//To debug files
 		//LeerArchivo(TESTFILE);
-		
-		//LeerArchivo(TESTFILEB6,"pruebaB6");
+		paginas = new ArrayList<Pagina>();
+		String test = "AnimationLayerTest";
+		LeerArchivo(TESTFILE,test);
+		try {
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	//Add File Test to parameters
@@ -45,6 +52,7 @@ public class Extraction
 		boolean ingles = true;
 		
 		Pagina actual = new Pagina(nombreArchivo);
+
 		try {
 			br = new BufferedReader(new FileReader(	file));
 			String linea =  br.readLine();
@@ -79,8 +87,8 @@ public class Extraction
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//OUTPUT FILES
-		//actual.cerrarOut();
+		paginas.add(actual);
+		actual.cerrarOut();
 		
 		
 		if(actual.getEng().size()==actual.getEsp().size())	{

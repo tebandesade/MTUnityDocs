@@ -1,0 +1,38 @@
+package MT;
+
+import java.util.Properties;
+
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+
+public class CoreNLP 
+{
+	private Properties props;
+	private StanfordCoreNLP pipeline;
+	
+	
+	public CoreNLP(String text)
+	{
+		 props = new Properties();
+		 props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner");
+	     pipeline = new StanfordCoreNLP(props);
+	    
+	    // Se puede hacer siempre la creacion del StanfordCoreNLP pero creo que eso solo
+	     // se quiere una vez
+	     
+	     //Toca crear una Anotation por documento? 
+	     //O una anotation por "ROW"
+	     process(text);
+	}
+	
+	private void process(String text)
+	{
+	 
+		System.out.println(text);
+	}
+	
+	public static void main (String[] args)
+	{
+		String testEng = "Unity uses <span class=\"doc-keyword\">Animation Layers</span> for managing complex state machines for different body parts. An example of this is if you have a lower-body layer for walking-jumping, and an upper-body layer for throwing objects / shooting.";
+		new CoreNLP(testEng);
+	}
+}

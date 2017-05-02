@@ -54,5 +54,9 @@ BUG 6: Your platform until now works like the first two sentences (MSGID and STR
      and if it is, it isn't translated
      FIXED with workaround and it's directly related to BUG4
 --------------------------------------------------------------------------
-               		  
-	
+BUG 7: When I'm writing the file, there wasn't any text in the output file
+	   Quick fix, had comment out some code in Pagina
+	   However, now when I'm trying to print to the page, an error occurs.
+	   NULL POINTER --> Approach that i was doing was debugging in console.              		  
+	   FIXED : PAGINAS wasn't initialized.
+--------------------------------------------------------------------------

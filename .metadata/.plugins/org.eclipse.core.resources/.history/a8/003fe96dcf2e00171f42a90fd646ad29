@@ -1,0 +1,9 @@
+package MT;
+
+public class CoreNLP 
+{
+	public CoreNLP()
+	{
+		 Properties props = new Properties();
+	}
+}

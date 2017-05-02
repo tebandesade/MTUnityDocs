@@ -1,0 +1,28 @@
+package MT;
+
+import java.util.Properties;
+
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+
+public class CoreNLP 
+{
+	private Properties props;
+	private StanfordCoreNLP pipeline;
+	
+	public CoreNLP(String text)
+	{
+		 props = new Properties();
+		 props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner");
+	     pipeline = new StanfordCoreNLP(props);
+	}
+	
+	private void process()
+	{
+		
+	}
+	
+	public void static main (String[] args)
+	{
+		
+	}
+}
