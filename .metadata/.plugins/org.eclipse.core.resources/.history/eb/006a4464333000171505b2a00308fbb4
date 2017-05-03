@@ -1,0 +1,58 @@
+package MT;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.stanford.nlp.ling.CoreLabel;
+
+public class Grams 
+{
+	private ArrayList<CoreLabel> eng;
+	private ArrayList<CoreLabel> esp;
+	
+	
+	public Grams(List<CoreLabel> englishSent, List<CoreLabel> spanishSent, int size) {
+		// TODO Auto-generated constructor stub
+		eng = new ArrayList<CoreLabel>();
+		esp = new ArrayList<CoreLabel>();
+		
+		operate(englishSent,spanishSent,size);
+	}
+
+	public void operate(List<CoreLabel> englishSent, List<CoreLabel> spanishSent,int size)
+	{
+		int min = Math.min(englishSent.size(), spanishSent.size());
+		int remainder = min%size;
+		if(remainder>0)
+		{
+			
+		}
+		else
+		{
+			int i; 
+			for(i=0; i<min;i++)
+			{
+				//Consider Stringbuilder (its better)
+				String[] ingles = new String[size];
+				String[] spanish = new String[size];
+				
+				ingles[i] = clean(englishSent.get(i));
+				spanish[i]= clean(spanishSent.get(i));
+				i++;
+				ingles[i] = clean(englishSent.get(i));
+				spanish[i]= clean(spanishSent.get(i));
+				i++;
+				ingles[i] = clean(englishSent.get(i));
+				spanish[i]= clean(spanishSent.get(i));
+			}
+			
+		}
+		
+	}
+	public String clean(CoreLabel coreLabel)
+	{
+		String actual = coreLabel.
+			return coreLabel;	
+		//return coreLabel.substring(0, coreLabel.size()-2);
+	}
+}

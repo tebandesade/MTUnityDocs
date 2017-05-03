@@ -1,0 +1,10 @@
+package MT;
+
+public class PairNGram 
+{
+	
+	public PairNGram(String nGramEng, String nGramEsp)
+	{
+		
+	}
+}

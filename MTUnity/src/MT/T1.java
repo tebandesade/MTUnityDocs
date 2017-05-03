@@ -12,10 +12,13 @@ public class T1
 	private static final File TESTESP = new File("AnimationLayerTestEsp.txt");
 	private static BufferedReader brEng ;
 	private static BufferedReader brEsp ;
-
+	private static CoreNLP sNLP;
+	
 	public T1() throws FileNotFoundException
 	{
+		sNLP = new CoreNLP();
 		readFile();
+
 	
 		
 	}
@@ -32,10 +35,12 @@ public class T1
 				while(lineaEng!=null && lineaEsp!=null)
 				{
 			
-					//System.out.println("Ingles: "+ lineaEng);
-					//System.out.println("Espanol:  "+ lineaEsp);
+					System.out.println("Ingles: "+ lineaEng);
+					System.out.println("Espanol:  "+ lineaEsp);
+					sNLP.process(lineaEng, lineaEsp);
 					 lineaEng = brEng.readLine();
 					 lineaEsp = brEsp.readLine();
+					 
 				}
 			
 			

@@ -1,0 +1,66 @@
+package MT;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class PairNGram 
+{
+
+	private String nGramEng;
+	
+	//private HashMap<String,Integer> esps;
+	private HashMap<String,HashMap<String,Integer>> eng;
+	
+	//ArrayList approach has to be done with the manual implementation of ngram
+	public PairNGram(String nGramEngl, String nGramEspa)
+	{
+		eng = new HashMap<String,HashMap<String,Integer>>();
+		nGramEng = nGramEngl;
+		
+		
+		//impimir(nGramEngl,nGramEspa);
+	}
+
+	private void impimir(String text1, String text2)
+	{
+		
+		System.out.println(text1);
+		System.out.println(text2);
+	}
+	
+	public void addPair(String nGramEng,String nGramEsp)
+	{
+	    if(eng.containsKey(nGramEng))
+	    {
+	    	if(eng.get(nGramEng).containsKey(nGramEsp))
+	    	{
+	    		eng.get(nGramEng).put(nGramEsp, eng.get(nGramEng).get(nGramEsp)+1);
+	    	}
+	    	else
+	    	{
+	    		eng.get(nGramEng).put(nGramEsp,1);
+	    	}
+	    }
+	    else
+	    {
+	    	
+	    	eng.put(nGramEng, value)
+	    }
+	}
+	
+
+	public String getNEnglish()
+	{
+		System.out.println(nGramEng);
+		return nGramEng;
+	}
+	public HashMap<String,Integer> getNSpanish(String engg)
+	{
+		
+		return eng.get(engg);
+	}
+	
+	
+	
+	
+}

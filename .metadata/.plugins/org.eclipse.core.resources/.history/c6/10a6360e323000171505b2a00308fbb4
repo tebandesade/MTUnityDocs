@@ -1,0 +1,49 @@
+package MT;
+
+import java.util.ArrayList;
+
+public class Grams 
+{
+	private ArrayList<String> eng;
+	private ArrayList<String> esp;
+	public Grams(ArrayList<String> arEng,ArrayList<String> arEsp,int size)
+	{
+		eng = new ArrayList<String>();
+		esp = new ArrayList<String>();
+	}
+	
+	public void operate(ArrayList<String> arEng, ArrayList<String> arEsp,int size)
+	{
+		int min = Math.min(arEng.size(), arEsp.size());
+		int remainder = min%size;
+		if(remainder>0)
+		{
+			
+		}
+		else
+		{
+			int i; 
+			for(i=0; i<min;i++)
+			{
+				//Consider Stringbuilder (its better)
+				String[] ingles = new String[3];
+				String[] spanish = new String[3];
+				
+				ingles[i] = clean(arEng.get(i));
+				spanish[i]= clean(arEsp.get(i));
+				i++;
+				ingles[i] = clean(arEng.get(i));
+				spanish[i]= clean(arEsp.get(i));
+				i++;
+				ingles[i] = clean(arEng.get(i));
+				spanish[i]= clean(arEsp.get(i));
+			}
+			
+		}
+		
+	}
+	public String clean(String text)
+	{
+		return text.substring(0, text.length()-2);
+	}
+}

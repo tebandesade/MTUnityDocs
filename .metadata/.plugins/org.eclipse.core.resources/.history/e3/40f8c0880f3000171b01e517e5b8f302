@@ -1,0 +1,17 @@
+package MT;
+
+import java.util.HashMap;
+
+public class TrainController 
+{
+	private HashMap<String,String> hm;
+	public TrainController()
+	{
+		
+	}
+	
+	public void addPair()
+	{
+		
+	}
+}

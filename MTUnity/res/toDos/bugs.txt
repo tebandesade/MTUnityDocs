@@ -60,3 +60,11 @@ BUG 7: When I'm writing the file, there wasn't any text in the output file
 	   NULL POINTER --> Approach that i was doing was debugging in console.              		  
 	   FIXED : PAGINAS wasn't initialized.
 --------------------------------------------------------------------------
+IDEA: Instead of passing references (int 1, int 2)
+      private int1;
+      private int2;
+      
+      and each time saveIt. For example in Ngram you can pass the sentences through
+      the constructor, save them in a class attribute and modify them according
+      Later add it .. //CHECK IF THIS IS THE DISCUSSION BETWEEN PASSING REFERENCE
+      AND PASSING VALUE

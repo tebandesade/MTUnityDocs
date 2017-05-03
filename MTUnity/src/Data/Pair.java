@@ -6,6 +6,6 @@ public class Pair
 	private String[] oracionesEsp;
 	public Pair(String ingles, String esp)
 	{
-		
+
 	}
 }

@@ -1,0 +1,22 @@
+package MT;
+
+import java.util.HashMap;
+
+public class PairNGram 
+{
+	
+	public PairNGram(String nGramEng, String nGramEsp)
+	{
+		impimir(nGramEng,nGramEsp);
+	}
+
+	private void impimir(String text1, String text2)
+	{
+		
+		System.out.println(text1);
+		System.out.println(text2);
+	}
+	
+	
+	
+}

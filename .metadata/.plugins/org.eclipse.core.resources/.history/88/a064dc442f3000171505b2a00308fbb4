@@ -1,0 +1,21 @@
+package MT;
+
+import java.util.ArrayList;
+
+public class Grams 
+{
+	
+	public Grams(ArrayList arEng,ArrayList arEsp,int size)
+	{
+		
+	}
+	
+	public void operate(ArrayList arEng, ArrayList arEsp)
+	{
+		int min = Math.min(arEng.size(), b)
+	}
+	public void clean(String text)
+	{
+		text.substring(0, text.length()-2);
+	}
+}

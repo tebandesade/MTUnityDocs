@@ -6,11 +6,21 @@
 <fullyQualifiedTypeName name="java.nio.file.Paths"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.swing.DebugGraphics"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.io.PrintWriter"/>
 <fullyQualifiedTypeName name="Data.Pagina"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.util.Properties"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.StanfordCoreNLP"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.Annotation"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.ling.CoreAnnotations"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.util.CoreMap"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.util.StringUtils"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.util.CollectionUtils"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.CoreNLPProtos.Sentence"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.util.ArrayCoreMap"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,9 @@
+package MT;
+
+public class Ngram 
+{
+	public Ngram()
+	{
+		
+	}
+}

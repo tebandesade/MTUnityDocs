@@ -1,0 +1,11 @@
+package MT;
+
+import java.util.ArrayList;
+
+public class Grams 
+{
+	public Grams(ArrayList ar)
+	{
+		
+	}
+}
