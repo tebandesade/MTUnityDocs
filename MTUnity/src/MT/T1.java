@@ -10,19 +10,23 @@ public class T1
 {
 	private static final File TESTENG = new File("AnimationLayerTestEng.txt");
 	private static final File TESTESP = new File("AnimationLayerTestEsp.txt");
+	
+	private static final File TESTBUG8ENG = new File("res/test/Bug9.txt");
+	private static final File TESTBUG8ESP = new File("res/test/Bug8esp.txt");
+	
 	private static BufferedReader brEng ;
 	private static BufferedReader brEsp ;
 	private static CoreNLP sNLP;
-	
+
 	public T1() throws FileNotFoundException
 	{
 		sNLP = new CoreNLP();
 		readFile();
 
-	
-		
+
+
 	}
-	
+
 	private void readFile()
 	{
 		try {
@@ -31,21 +35,21 @@ public class T1
 
 			String lineaEng = brEng.readLine();
 			String lineaEsp = brEsp.readLine();
+		
+			while(lineaEng!=null && lineaEsp!=null)
+			{
 
-				while(lineaEng!=null && lineaEsp!=null)
-				{
-			
-					System.out.println("Ingles: "+ lineaEng);
-					System.out.println("Espanol:  "+ lineaEsp);
-					sNLP.process(lineaEng, lineaEsp);
-					 lineaEng = brEng.readLine();
-					 lineaEsp = brEsp.readLine();
-					 
-				}
-			
-			
-			
-			
+				//System.out.println("Ingles: "+ lineaEng);
+				//System.out.println("Espanol:  "+ lineaEsp);
+				sNLP.process(lineaEng, lineaEsp);
+				lineaEng = brEng.readLine();
+				lineaEsp = brEsp.readLine();
+
+			}
+
+
+
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,7 +62,7 @@ public class T1
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main (String[] args)
 	{
 		try {
@@ -68,6 +72,6 @@ public class T1
 			e.printStackTrace();
 		}
 	}
-	
+
 
 }

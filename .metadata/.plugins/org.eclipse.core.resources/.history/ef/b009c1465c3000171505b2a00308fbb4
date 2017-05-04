@@ -1,0 +1,3 @@
+Puedes manejar los animation layers desde <span class=\"doc-inspector\">Layers Widget</span>  en la esquina superior izquierda del <span class=\"doc-inspector\">Animator Controller</span>.
+Usted puede agregar una nueva capa al presiona el <span class=\"doc-menu\">+</span>  encima del 
+Por ejemplo, si usted quería reproducir una animación de tirar algo en solamente el cuerpo superior de su modelo, mientras que su personaje también es capaz de caminar, correo o parecerse quieto al mismo tiempo, usted puede utilizar una mask en la capa que reproduce la animación de tirar cosas donde las secciones superiores del cuerpo son definidas, así:

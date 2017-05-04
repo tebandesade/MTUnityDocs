@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/Users/Teban1503/Documents/Universidad de los Andes/Septimo Semestre/NYU/NLP/stanford-corenlp-full-2016-10-31/stanford-corenlp-3.7.0.jar"/>
+	<classpathentry kind="lib" path="/Users/Teban1503/Documents/Universidad de los Andes/Septimo Semestre/NYU/NLP/stanford-corenlp-full-2016-10-31/stanford-corenlp-3.7.0.jar" sourcepath="/Users/Teban1503/.m2/repository/edu/stanford/nlp/stanford-corenlp/3.7.0/stanford-corenlp-3.7.0-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/Teban1503/Documents/Universidad de los Andes/Septimo Semestre/NYU/NLP/stanford-corenlp-full-2016-10-31/slf4j-api.jar"/>
 	<classpathentry kind="lib" path="/Users/Teban1503/Documents/Universidad de los Andes/Septimo Semestre/NYU/NLP/stanford-corenlp-full-2016-10-31/slf4j-simple.jar"/>
 	<classpathentry kind="lib" path="/Users/Teban1503/Documents/Universidad de los Andes/Septimo Semestre/NYU/NLP/stanford-corenlp-full-2016-10-31/stanford-corenlp-3.7.0-javadoc.jar"/>

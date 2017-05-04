@@ -2471,3 +2471,99 @@ Binding(COMMAND+SHIFT+F10,
 
 !ENTRY org.eclipse.core.net 1 0 2017-05-03 13:38:48.793
 !MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.jboss.tools.common.jdt.debug 1 0 2017-05-03 19:20:01.694
+!MESSAGE JDK root directory is found at /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home.
+
+!ENTRY org.jboss.tools.common.jdt.debug 2 0 2017-05-03 20:46:11.953
+!MESSAGE 
+!STACK 1
+org.jboss.tools.common.jdt.debug.tools.ToolsCoreException: 
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeGetMonitoredVm(Tools.java:585)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getMonitoredVm(Tools.java:595)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.processIsRunning(ToolsCore.java:98)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModelsUsingTools(RemoteDebugActivator.java:168)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModel(RemoteDebugActivator.java:150)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModel(RemoteDebugActivator.java:156)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModels(RemoteDebugActivator.java:133)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getDebugModels(RemoteDebugActivator.java:206)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getDebugModels(RemoteDebugActivator.java:240)
+	at org.jboss.tools.common.jdt.debug.ui.RemoteDebugUIActivator.discoverRemoteApplication(RemoteDebugUIActivator.java:139)
+	at org.jboss.tools.common.jdt.debug.ui.RemoteDebugUIActivator$1.run(RemoteDebugUIActivator.java:95)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.lang.reflect.InvocationTargetException
+	at sun.reflect.GeneratedMethodAccessor92.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeGetMonitoredVm(Tools.java:583)
+	... 11 more
+Caused by: sun.jvmstat.monitor.MonitorException: 1581 not found
+	at sun.jvmstat.perfdata.monitor.protocol.local.PerfDataBuffer.<init>(PerfDataBuffer.java:84)
+	at sun.jvmstat.perfdata.monitor.protocol.local.LocalMonitoredVm.<init>(LocalMonitoredVm.java:68)
+	at sun.jvmstat.perfdata.monitor.protocol.local.MonitoredHostProvider.getMonitoredVm(MonitoredHostProvider.java:77)
+	at sun.jvmstat.perfdata.monitor.protocol.local.MonitoredHostProvider.getMonitoredVm(MonitoredHostProvider.java:67)
+	... 15 more
+Caused by: java.lang.IllegalArgumentException: Process not found
+	at sun.misc.Perf.attach(Native Method)
+	at sun.misc.Perf.attachImpl(Perf.java:270)
+	at sun.misc.Perf.attach(Perf.java:200)
+	at sun.jvmstat.perfdata.monitor.protocol.local.PerfDataBuffer.<init>(PerfDataBuffer.java:64)
+	... 18 more
+!SUBENTRY 1 org.jboss.tools.common.jdt.debug 4 0 2017-05-03 20:46:11.954
+!MESSAGE 
+!STACK 0
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.GeneratedMethodAccessor92.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeGetMonitoredVm(Tools.java:583)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getMonitoredVm(Tools.java:595)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.processIsRunning(ToolsCore.java:98)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModelsUsingTools(RemoteDebugActivator.java:168)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModel(RemoteDebugActivator.java:150)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModel(RemoteDebugActivator.java:156)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModels(RemoteDebugActivator.java:133)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getDebugModels(RemoteDebugActivator.java:206)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getDebugModels(RemoteDebugActivator.java:240)
+	at org.jboss.tools.common.jdt.debug.ui.RemoteDebugUIActivator.discoverRemoteApplication(RemoteDebugUIActivator.java:139)
+	at org.jboss.tools.common.jdt.debug.ui.RemoteDebugUIActivator$1.run(RemoteDebugUIActivator.java:95)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: sun.jvmstat.monitor.MonitorException: 1581 not found
+	at sun.jvmstat.perfdata.monitor.protocol.local.PerfDataBuffer.<init>(PerfDataBuffer.java:84)
+	at sun.jvmstat.perfdata.monitor.protocol.local.LocalMonitoredVm.<init>(LocalMonitoredVm.java:68)
+	at sun.jvmstat.perfdata.monitor.protocol.local.MonitoredHostProvider.getMonitoredVm(MonitoredHostProvider.java:77)
+	at sun.jvmstat.perfdata.monitor.protocol.local.MonitoredHostProvider.getMonitoredVm(MonitoredHostProvider.java:67)
+	... 15 more
+Caused by: java.lang.IllegalArgumentException: Process not found
+	at sun.misc.Perf.attach(Native Method)
+	at sun.misc.Perf.attachImpl(Perf.java:270)
+	at sun.misc.Perf.attach(Perf.java:200)
+	at sun.jvmstat.perfdata.monitor.protocol.local.PerfDataBuffer.<init>(PerfDataBuffer.java:64)
+	... 18 more
+Root exception:
+sun.jvmstat.monitor.MonitorException: 1581 not found
+	at sun.jvmstat.perfdata.monitor.protocol.local.PerfDataBuffer.<init>(PerfDataBuffer.java:84)
+	at sun.jvmstat.perfdata.monitor.protocol.local.LocalMonitoredVm.<init>(LocalMonitoredVm.java:68)
+	at sun.jvmstat.perfdata.monitor.protocol.local.MonitoredHostProvider.getMonitoredVm(MonitoredHostProvider.java:77)
+	at sun.jvmstat.perfdata.monitor.protocol.local.MonitoredHostProvider.getMonitoredVm(MonitoredHostProvider.java:67)
+	at sun.reflect.GeneratedMethodAccessor92.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.invokeGetMonitoredVm(Tools.java:583)
+	at org.jboss.tools.common.jdt.debug.tools.internal.Tools.getMonitoredVm(Tools.java:595)
+	at org.jboss.tools.common.jdt.debug.tools.ToolsCore.processIsRunning(ToolsCore.java:98)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModelsUsingTools(RemoteDebugActivator.java:168)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModel(RemoteDebugActivator.java:150)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModel(RemoteDebugActivator.java:156)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getVmModels(RemoteDebugActivator.java:133)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getDebugModels(RemoteDebugActivator.java:206)
+	at org.jboss.tools.common.jdt.debug.RemoteDebugActivator.getDebugModels(RemoteDebugActivator.java:240)
+	at org.jboss.tools.common.jdt.debug.ui.RemoteDebugUIActivator.discoverRemoteApplication(RemoteDebugUIActivator.java:139)
+	at org.jboss.tools.common.jdt.debug.ui.RemoteDebugUIActivator$1.run(RemoteDebugUIActivator.java:95)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+Caused by: java.lang.IllegalArgumentException: Process not found
+	at sun.misc.Perf.attach(Native Method)
+	at sun.misc.Perf.attachImpl(Perf.java:270)
+	at sun.misc.Perf.attach(Perf.java:200)
+	at sun.jvmstat.perfdata.monitor.protocol.local.PerfDataBuffer.<init>(PerfDataBuffer.java:64)
+	... 18 more

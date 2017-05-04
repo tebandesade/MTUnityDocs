@@ -68,3 +68,11 @@ IDEA: Instead of passing references (int 1, int 2)
       the constructor, save them in a class attribute and modify them according
       Later add it .. //CHECK IF THIS IS THE DISCUSSION BETWEEN PASSING REFERENCE
       AND PASSING VALUE
+---------------------------------------------------------------------------
+BUG 8: NGrams (function implemented) is not working correctly, sometimes the arraylist
+	   it has to create for each language is of the same size but has problems because the
+	   size means that it's the same ngram
+	   PFIXED: Wrong initialization of String[3], was getting the reference
+BUG 9: This could be seen thanks to bug8. It appears the sentences have different sizes
+        It was product of the testing data. Will run.
+        Appears to be fixed

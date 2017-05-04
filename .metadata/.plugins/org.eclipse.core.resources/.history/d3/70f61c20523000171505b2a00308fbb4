@@ -1,0 +1,27 @@
+package MT;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class TrainController 
+{
+	//Think to add a hashmap inside <>
+	private HashMap<String,String> hm;
+	private PairNGram pair;
+	//
+	//Proposal HashMap<String,HashMap<String,Count>>()
+	public TrainController()
+	{
+		hm = new HashMap<String, String>();
+		pair = new PairNGram();
+	}
+	
+	public void addPair(ArrayList<String[]> eng,ArrayList<String[]> esp)
+	{
+		//In case there are different sizes of arrays
+		int min = Math.min(eng.size(), esp.size());
+		pair.addPair(eng, esp);
+		
+	}
+	
+}

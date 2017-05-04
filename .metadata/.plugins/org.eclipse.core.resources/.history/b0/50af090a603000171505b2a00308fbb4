@@ -1,0 +1,4 @@
+You can manage animation layers from the <span class=\"doc-inspector\">Layers Widget</span> in the top-left corner of the <span class=\"doc-inspector\">Animator Controller</span>.
+You can add a new layer by pressing the <span class=\"doc-menu\">+</span> above the widget. 
+For example if you want to simulate \"wounded\" behavior, and have \"wounded\" animations for walk / run / jump instead of the \"healthy\" ones. You can click the <span class=\"doc-menu\">Sync</span> checkbox on one of your layers, and then select the layer you want to sync with. The state machine structure will then be the same, but the actual animation clips used by the states will be distinct.
+An 'M' symbol is visible in the Layers sidebar to indicate the layer has a mask applied.

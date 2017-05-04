@@ -17,6 +17,7 @@ public class CoreNLP
 {
 	private Properties props;
 	private StanfordCoreNLP pipeline;
+	private TrainController tc;
 
 
 	//Have to remove Parameters if want to do it full scale
@@ -26,6 +27,7 @@ public class CoreNLP
 		props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner");
 		pipeline = new StanfordCoreNLP(props);
+		tc = new TrainController();
 
 		// Se puede hacer siempre la creacion del StanfordCoreNLP pero creo que eso solo
 		// se quiere una vez
@@ -54,7 +56,13 @@ public class CoreNLP
 
 		//Different size of sentences
 		int mayor = Math.max(sentEng.size(), sentEsp.size());
+		
+		
 		int i;
+		System.out.println("Size of eNGLI: "+sentEng.size());
+		System.out.println("Size of espLI: "+sentEsp.size());
+		System.out.println("MAYOR: "+mayor);
+
 		for(i=0;i<mayor;i++)
 		{
 			//Potencial de investigacion
@@ -75,6 +83,7 @@ public class CoreNLP
 			{
 
 				//PRINTS SENTENCES TO STRINGS
+			//	if(sentEsp.size()>)
 				CoreMap esp = 	sentEsp.get(i);
 				CoreMap eng = 	sentEng.get(i);
 
@@ -115,19 +124,25 @@ public class CoreNLP
 				//Where each sentence would have an n-gram model and count probability
 
 				//Have n-gram output is with parentesis
-				//Can take them out with regex (regular expressions)
-
+				//Can take them out with regex (regular expressions)?
+				
+				//TOKENSIZE
 				System.out.println("SizeEng: "+englishSent.size());
 				System.out.println("SizeEsp: "+spanishSent.size());
 
-				
-				
+
+
 				//loopNGrams(englishSent,spanishSent);
+				System.out.println("TokensEng: "+ englishSent);
+				System.out.println("TokensSpa: "+spanishSent);
 				Grams gr =  new Grams(3);
 				gr.operate(englishSent, spanishSent);
+
+				tc.addPair(gr.getEngGrams(),	gr.getEspGrams());
 				
-				gr.getEngGrams();
-				gr.getEspGrams();
+				//Dont know yet
+				//gr.cleanArrays();
+
 
 				//Shows string
 				//System.out.println("Eng; "+sentEsp.get(i));
@@ -147,8 +162,8 @@ public class CoreNLP
 
 	public static void main (String[] args)
 	{
-		String testEng = "Unity uses <span class=\"doc-keyword\">Animation Layers</span> for managing complex state machines for different body parts. An example of this is if you have a lower-body layer for walking-jumping, and an upper-body layer for throwing objects / shooting.";
-		String testEsp = "Unity usa <span class=\"doc-keyword\">Animation Layers</span> para manejar state machines complejos para differente partes del cuerpo. Un ejemplo de esto es si se tiene una capa inferior de cuerpo para caminar-saltar, y una capa superior de cuerpo para tirar objetos / disparar.";
+		//String testEng = "Unity uses <span class=\"doc-keyword\">Animation Layers</span> for managing complex state machines for different body parts. An example of this is if you have a lower-body layer for walking-jumping, and an upper-body layer for throwing objects / shooting.";
+		//String testEsp = "Unity usa <span class=\"doc-keyword\">Animation Layers</span> para manejar state machines complejos para differente partes del cuerpo. Un ejemplo de esto es si se tiene una capa inferior de cuerpo para caminar-saltar, y una capa superior de cuerpo para tirar objetos / disparar.";
 
 		//new CoreNLP(testEng,testEsp);
 	}
@@ -164,6 +179,6 @@ public class CoreNLP
 			//Workaround quick make it tostring
 			//PairNGram pair = new PairNGram(englishSent.get(i).toString(),spanishSent.get(i).toString());
 		}
-	
+
 	}
 }

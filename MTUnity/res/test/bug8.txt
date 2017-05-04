@@ -1,0 +1,4 @@
+You can manage animation layers from the <span class=\"doc-inspector\">Layers Widget</span> in the top-left corner of the <span class=\"doc-inspector\">Animator Controller</span>.
+You can add a new layer by pressing the <span class=\"doc-menu\">+</span> above the widget. 
+For example if you wanted to play a throwing animation on just the upper body of your model, while having your character also able to walk, run or stand still at the same time, you would use a mask on the layer which plays the throwing animation where the upper body sections are defined, like this:
+An 'M' symbol is visible in the Layers sidebar to indicate the layer has a mask applied.
