@@ -1,0 +1,19 @@
+package IBMModel1;
+
+public class Alignment 
+{
+	private int l;
+	private int m;
+	
+	public Alignment(int le,int me)
+	{
+		l =le;
+		m =me;
+	}
+	
+	//In IBM model 1 all allignments a are equally likely
+	public double probAlem()
+	{
+		return (1/(Math.pow((l+1), m)));
+	}
+}

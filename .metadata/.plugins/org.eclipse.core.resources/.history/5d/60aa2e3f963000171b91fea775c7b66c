@@ -1,0 +1,57 @@
+package MT;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class TrainController 
+{
+	//Think to add a hashmap inside <>
+	private HashMap<String,String> hm;
+	private PairNGram pair;
+	//
+	//Proposal HashMap<String,HashMap<String,Count>>()
+	public TrainController()
+	{
+		hm = new HashMap<String, String>();
+		pair = new PairNGram();
+	}
+
+	//Aqui deberia ir EM alg para encontrar el allignment
+	//El EM algorithm se podría tomar LOCALMENTE
+	//es decir, se podría tomar por Sentence
+	//for each sentence, check the allignment and later pull its allignment
+	public void addPair(ArrayList<String[]> eng,ArrayList<String[]> esp)
+	{
+		//In case there are different sizes of arrays
+		int min = Math.min(eng.size(), esp.size());
+		int mayor = Math.max(eng.size(), esp.size());
+		
+		
+		System.out.println("TCSIZEENG: "+eng.size());
+		System.out.println("TCSIZEESP: "+ esp.size());
+		int i;
+		int j=0;
+		System.out.println("MINTRAIN: "+min);
+		for(i = 0; i<min;i++)
+		{
+
+			System.out.println("ARRAYLIST ENG: "+eng.get(i)[j]+" "+eng.get(i)[j+1]+" ");
+			System.out.println("ARRAYLIST ESP: "+esp.get(i)[j]+ " "+esp.get(i)[j+1]+" ");
+			pair.addPair(eng.get(i), esp.get(i));
+
+		}
+		if(mayor-min>0)
+		{
+			ArrayList<String[]> max = (eng.size()>= esp.size()?eng:esp);
+		}
+		
+	}
+
+	public void getProbs()
+	{
+		HashMap<String[], HashMap<String[], Integer>> actual = pair.getNEnglish();
+		System.out.println("PROBS SIZE : "+actual.size());
+	}
+
+
+}

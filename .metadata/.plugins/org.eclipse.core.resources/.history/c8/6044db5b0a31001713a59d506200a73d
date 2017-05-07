@@ -1,0 +1,9 @@
+package IBMModel1;
+
+public class WordPair 
+{
+	public WordPair(String eng,String esp)
+	{
+		
+	}
+}

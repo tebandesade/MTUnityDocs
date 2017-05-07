@@ -1,9 +1,0 @@
-package MT;
-
-public class PairNGram 
-{
-	public PairNGram(String nGram1, String nGram2)
-	{
-		
-	}
-}

@@ -1,0 +1,89 @@
+BUG 1: Beginning Words
+~  //in other words, it didn't begin with msgid|msgstr 
+Cases found = 2608
+FIXED --> Index that begins with either word
+----------------------------------------------------------------------
+BUG 2: The platform gives each "row" msg between " " (Like string type of data"
+Cases -> All
+FIXED -> Removes everything before the opening "
+         "  " (Result format like this) then gets everything between first
+         index and lastindex-1
+-----------------------------------------------------------------------
+BUG 3: Begining of words sometimes have format like
+## XXXX
+#### XXXX
+Cases -> A lot, don't know exactly how much
+Maybe a solution regex (FSA)
+
+Thought: If this changes, the whole thing will changed when trying to map
+the data again I.e if I want to put this to help my workflow. (THEORY)
+------------------------------------------------------------------------
+BUG 4: Size of output arrays different in some cases:
+For the moment have true or false if size differs and its size
+Would have to debug carefully
+WorkAround -> NOOO 
+	Skip it. Check how many it differs, check how many it doesn't
+
+	According to a checker there are total 1349 pages, sizes of 308 don't match
+	That's 22%
+	Checker is two debug int variables that count at the end of leerArchivo.
+Have to fix it. Check what pages there're. Added name attribute to page
+				Saw pages with problems and created Bug6
+FIXED: Bug6 was related to this. 
+-------------------------------------------------------------------------
+BUG 5: Saw that the name of the pages was es.po (name of file) when passed to 
+	 debug last problem
+FIXED: Added parameter name to Pagina refering to the page's name which is
+	   the parent directory of the file being passed to the LeerArchivo 
+	   function 
+-------------------------------------------------------------------------
+BUG 6: Your platform until now works like the first two sentences (MSGID and STR)
+     are blank (FORMAT). Don't take into consideration the ones that aren't
+     translated. (EMPTY MSGSTR) (Hypothesis)
+     
+     DevelopmentData: xbox360-titleupdates.edit (bug6.txt)
+     						Show data that hasn't been translated
+     			      android-OBBsupport        (bug60.txt)
+     The hypo stating corresponds to what is said with bug6.txt data 
+     			(Data not being translated)
+     Would be better to have a more organized pipeline
+     	Read files and while you find msgid add to msgid array
+     	Read files and while you find msgstr add to msgstr array
+     	Supposes there're the same amount of msgid/msgstr pairs
+     Workaround boolean flag to check if the less than two size is msgtr
+     and if it is, it isn't translated
+     FIXED with workaround and it's directly related to BUG4
+--------------------------------------------------------------------------
+BUG 7: When I'm writing the file, there wasn't any text in the output file
+	   Quick fix, had comment out some code in Pagina
+	   However, now when I'm trying to print to the page, an error occurs.
+	   NULL POINTER --> Approach that i was doing was debugging in console.              		  
+	   FIXED : PAGINAS wasn't initialized.
+--------------------------------------------------------------------------
+IDEA: Instead of passing references (int 1, int 2)
+      private int1;
+      private int2;
+      
+      and each time saveIt. For example in Ngram you can pass the sentences through
+      the constructor, save them in a class attribute and modify them according
+      Later add it .. //CHECK IF THIS IS THE DISCUSSION BETWEEN PASSING REFERENCE
+      AND PASSING VALUE
+---------------------------------------------------------------------------
+BUG 8: NGrams (function implemented) is not working correctly, sometimes the arraylist
+	   it has to create for each language is of the same size but has problems because the
+	   size means that it's the same ngram
+	   PFIXED: Wrong initialization of String[3], was getting the reference
+BUG 9: This could be seen thanks to bug8. It appears the sentences have different sizes
+        It was product of the testing data. Will run.
+        FIXED:Appears to be fixed
+---------------------------------------------------------------------------    
+BUG 0: Se planeó e hizo mal esto. Se supone que la alineada se hace a partir de algoritmo (eeem)
+	   Usted lo que hizo fue coger crear ngrams y alinearlos arbitrariamente para luego que se
+	   calculara una probabilidad y se cogiera la probabilidad mayor.
+	   ---1349 pgs
+----------------------------------------------------------------------------
+BUG 0.1: fuzzy words. In other words, if the translations are bad, it makes the system not 
+		work. This is because it relies in StanfordCoreNLP and the implementation is specific
+		to this problem and there're problems with the edge cases (fuzzy)
+		There are 31,801 pair of sentences
+		There are 2875 that have fuzzy

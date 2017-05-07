@@ -1,0 +1,94 @@
+package Testing;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+import MT.PairNGram;
+import MT.TrainController;
+
+public class TestController 
+{
+	private TrainController tc;
+	private PairNGram pair ;
+	private HashMap<String[], HashMap<String[], Integer>> dict;
+
+	public TestController(TrainController train)
+	{
+		//Change the new TestController;
+		tc = train;
+		pair = tc.getTrainPairs();
+		dict =  pair.getNEnglish();
+	}
+
+	public String[] getMaxPair(String[] engSentence)
+	{
+		if(!dict.containsKey(engSentence))
+		{
+			System.out.println("It doesn't have that gram in the dict");
+			return null;
+		}
+		else
+		{
+			int max = getMaxValue((ArrayList<Integer>) pair.getNSpanish(engSentence).values());
+			String[] ret =getEspPair(pair.getNSpanish(engSentence).keySet(),max);
+			System.out.println(pair.getNSpanish(engSentence).keySet());
+			
+		}
+	}
+
+	private int getMaxValue(ArrayList<Integer> valores)
+	{
+		if(valores.size()>0)
+		{
+			int i ; 
+			int mayor = 0;
+			for(i=0;i<valores.size();i++)
+			{
+				int actual = valores.get(i);
+				mayor = Math.max(mayor, actual);
+			}
+			return mayor;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public void traducir(ArrayList<String[]> translate, PaginaTraducida actual) {
+
+		int i; 
+		int tam = translate.size();
+
+		for(i=0; i<tam;i++)
+		{
+			getMaxPair(translate.get(i));
+			int j ;
+			String actua ="";
+			for(j=0;j<translate.get(i).length;j++)
+			{
+				actua = actua +translate.get(i)[j]+" ";
+			}
+			actual.addEspSentence(actua);
+		}
+	}
+	
+	private String[] getEspPair(Set<String[]> set, int max)
+	{
+		
+		int i;
+		ArrayList<String[]> ar = (String[]) set.toArray();
+		int tam = ar.size();
+		for(i=0;i<tam;i++)
+		{
+		 pair.getNSpanish(ar.get(i));
+			
+			
+		}
+		return null;
+		
+	}
+
+
+}

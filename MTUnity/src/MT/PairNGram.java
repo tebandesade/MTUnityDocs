@@ -21,7 +21,7 @@ public class PairNGram
 
 	public void addPair(String[] nGramEng,String[] nGramEsp)
 	{
-	
+
 		if(eng.containsKey(nGramEng))
 		{
 			if(eng.get(nGramEng).containsKey(nGramEsp))
@@ -43,6 +43,7 @@ public class PairNGram
 
 	public HashMap<String[],HashMap<String[],Integer>> getNEnglish()
 	{
+		//System.out.println("IT gets English dictionary: "+ eng);
 		return eng;
 	}
 	public HashMap<String[],Integer> getNSpanish(String[] engg)

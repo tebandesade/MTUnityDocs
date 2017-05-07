@@ -6,41 +6,57 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import Testing.FileManager;
+import Testing.TestController;
+
 public class T1 
 {
 	private static final File TESTENG = new File("AnimationLayerTestEng.txt");
 	private static final File TESTESP = new File("AnimationLayerTestEsp.txt");
-	
+
 	private static final File TESTBUG8ENG = new File("res/test/Bug9.txt");
 	private static final File TESTBUG8ESP = new File("res/test/Bug8esp.txt");
-	
+
+		private static final File DIRECTORIOENG = new File ("res/repo/pagesEng/debug/train/");
+		private static final File DIRECTORIOESP = new File ("res/repo/pagesEsp/debug/train/");
+
 	private static BufferedReader brEng ;
 	private static BufferedReader brEsp ;
 	private static CoreNLP sNLP;
+	private FileManager fm;
 
 	public T1() throws FileNotFoundException
 	{
 		sNLP = new CoreNLP();
-		readFile();
+		readFiles();
+		fm = new FileManager(sNLP);
+		sNLP.setTestController(fm.getTestController());
+		fm.LeerArchivos();
+		
+		//readFile();
+		
 
 
 
 	}
+	
+	
 
-	private void readFile()
+	private void readPairFile(File eng,File esp)
 	{
 		try {
-			brEng = new BufferedReader(new FileReader(TESTENG));
-			brEsp = new BufferedReader(new FileReader(TESTESP));
+			brEng = new BufferedReader(new FileReader(eng));
+			brEsp = new BufferedReader(new FileReader(esp));
 
 			String lineaEng = brEng.readLine();
 			String lineaEsp = brEsp.readLine();
-		
+
 			while(lineaEng!=null && lineaEsp!=null)
 			{
 
 				//System.out.println("Ingles: "+ lineaEng);
 				//System.out.println("Espanol:  "+ lineaEsp);
+				//System.out.println("PAGE: "+eng.getName());
 				sNLP.process(lineaEng, lineaEsp);
 				lineaEng = brEng.readLine();
 				lineaEsp = brEsp.readLine();
@@ -73,5 +89,26 @@ public class T1
 		}
 	}
 
+	public void readFiles()
+	{
+		File[] listFilesEng = DIRECTORIOENG.listFiles();
+		File[] listFilesEsp = DIRECTORIOESP.listFiles();
+		//System.out.println("TAM ARCHIVOS "+listFilesEng.length);
+		//System.out.println("TAM ARCHIVOS "+listFilesEng.length);
+		int tamArchivos =  listFilesEng.length;
+
+
+		for (int i = 1; i <tamArchivos; i++) {
+
+
+			File indexEng = listFilesEng[i];
+			File indexEsp = listFilesEsp[i];
+
+			readPairFile(indexEng, indexEsp);
+
+		}
+
+
+	}
 
 }

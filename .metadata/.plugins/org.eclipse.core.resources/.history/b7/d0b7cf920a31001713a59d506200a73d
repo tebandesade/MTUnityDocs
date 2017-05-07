@@ -1,0 +1,12 @@
+package IBMModel1;
+
+public class Dict 
+{
+	HashMap<String,String> dic ;
+	
+	public Dict()
+	{
+		dic = new HashMap<String,String>();
+		
+	}
+}

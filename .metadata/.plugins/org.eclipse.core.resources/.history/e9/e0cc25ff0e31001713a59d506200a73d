@@ -1,0 +1,16 @@
+package IBMModel1;
+
+public class WordTranslated 
+{
+	private String word;
+	private int =0;
+	public WordTranslated(String wordEsp)
+	{
+		word = wordEsp;
+	}
+	
+	private String getWord()
+	{
+		return word;
+	}
+}

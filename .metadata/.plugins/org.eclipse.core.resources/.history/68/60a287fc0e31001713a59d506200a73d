@@ -1,0 +1,9 @@
+package IBMModel1;
+
+public class WordTranslated 
+{
+	public WordTranslated(String wordEsp)
+	{
+		
+	}
+}

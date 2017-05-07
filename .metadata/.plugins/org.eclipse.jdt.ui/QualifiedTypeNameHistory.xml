@@ -19,8 +19,18 @@
 <fullyQualifiedTypeName name="edu.stanford.nlp.util.CoreMap"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.util.StringUtils"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.util.CollectionUtils"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.CoreNLPProtos.Sentence"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.util.ArrayCoreMap"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="IBMModel1.WordPair"/>
+<fullyQualifiedTypeName name="javax.swing.plaf.synth.SynthSpinnerUI"/>
+<fullyQualifiedTypeName name="MT.TrainController"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="MT.CoreNLP"/>
+<fullyQualifiedTypeName name="Testing.TestController"/>
+<fullyQualifiedTypeName name="Testing.FileManager"/>
+<fullyQualifiedTypeName name="javax.swing.text.html.HTMLDocument.Iterator"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
 </qualifiedTypeNameHistroy>

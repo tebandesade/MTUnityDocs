@@ -75,4 +75,22 @@ BUG 8: NGrams (function implemented) is not working correctly, sometimes the arr
 	   PFIXED: Wrong initialization of String[3], was getting the reference
 BUG 9: This could be seen thanks to bug8. It appears the sentences have different sizes
         It was product of the testing data. Will run.
-        Appears to be fixed
+        FIXED:Appears to be fixed
+---------------------------------------------------------------------------    
+BUG 0: Se planeó e hizo mal esto. Se supone que la alineada se hace a partir de algoritmo (eeem)
+	   Usted lo que hizo fue coger crear ngrams y alinearlos arbitrariamente para luego que se
+	   calculara una probabilidad y se cogiera la probabilidad mayor.
+	   ---1349 pgs
+----------------------------------------------------------------------------
+BUG 0.1: fuzzy words. In other words, if the translations are bad, it makes the system not 
+		work. This is because it relies in StanfordCoreNLP and the implementation is specific
+		to this problem and there're problems with the edge cases (fuzzy)
+		There are 31,801 pair of sentences
+		There are 2875 that have fuzzy counts for 4% 
+		Have to remove this and see if the system works better to see if size of
+		Ngrams is the same. 
+		
+		
+		have to re-build the training data because placed to lowerCase everything.(in clean method)
+		also you have to continue dubugging system of n-gram because it appears it doesn't get it
+		with dictionary, have to build and test 

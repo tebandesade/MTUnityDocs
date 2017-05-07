@@ -1,6 +1,9 @@
 package Data;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -9,19 +12,42 @@ public class Pagina
 	private ArrayList<String> esp;
 	private ArrayList<String> eng;
 	private static PrintWriter outIngles;
+	private static OutputStream oIng;
+	private static OutputStream oEsp;
 	private static PrintWriter outEsp;
+	private static FileOutputStream osEn;
+	private static FileOutputStream osEsp;
 	private String nombrePagina;
 
-	public Pagina(String name)	
+
+	public Pagina(String name,boolean flag)	
 	{
+		String archivoEsp="";
+		String archivoEng="";
+		    if(flag)
+		    {
 			nombrePagina = name;
-			String archivoEsp = //"/output/"+
+			 archivoEsp = "res/repo/pagesEsp/debug/train/"+
 			name + "Esp.txt";
-			String archivoEng = //"/output/"+
+			 archivoEng = "res/repo/pagesEng/debug/train/"+
 			name + "Eng.txt";
+		    }
+		    else 	
+		    {
+		    	nombrePagina = name;
+				 archivoEsp = "res/repo/pagesEsp/debug/test/"+
+				name + "Esp.txt";
+				 archivoEng = "res/repo/pagesEng/debug/test/"+
+				name + "Eng.txt";
+		    }
+			
 		try {
-			outIngles = new PrintWriter(archivoEng);
-			outEsp = new PrintWriter(archivoEsp);
+	
+			oIng = new FileOutputStream(archivoEng);
+			oEsp = new FileOutputStream(archivoEsp);
+			 
+			//outIngles = new PrintWriter(archivoEng);
+			//outEsp = new PrintWriter(archivoEsp);
 			esp = new ArrayList();
 			eng = new ArrayList();
 		} 
@@ -35,15 +61,33 @@ public class Pagina
 	
 	public void addEspSentence(String espa)
 	{
-		esp.add(espa);
-		outEsp.println(espa);
 		
+		//outEsp.println(espa);
+		//outIngles.println(engl);
+				try {
+					oEsp.write(espa.getBytes());
+					oEsp.write("\n".getBytes());
+					esp.add(espa);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	}
 	
 	public void addEngSentence(String engl)
 	{
-		eng.add(engl);
-		outIngles.println(engl);
+		
+		//outIngles.println(engl);
+		try {
+			System.out.println(oIng);
+			oIng.write(engl.getBytes());
+			oIng.write("\n".getBytes());
+			eng.add(engl);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public ArrayList<String> getEsp()
@@ -58,11 +102,20 @@ public class Pagina
 	
 	public void cerrarOut()
 	{
-		outEsp.close();
-		outIngles.close();
+		//outEsp.close();
+		//outIngles.close();
+		try {
+			oEsp.close();
+			oIng.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 	}
 	public String giveName()
 	{
 		return nombrePagina;
 	}
+	
 }

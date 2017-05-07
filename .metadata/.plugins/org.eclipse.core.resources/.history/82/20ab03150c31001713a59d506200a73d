@@ -1,0 +1,31 @@
+package IBMModel1;
+
+public class Alignment 
+{
+	private int l;
+	private int m;
+	
+	//Receives sentEng(le), sentEsp(me)
+	public Alignment(String[] le,String[] me)
+	{
+		l =le.length;
+		m =me.length;
+	}
+	
+	//In IBM model 1 all allignments a are equally likely
+	//This will get us off the ground. It is simple.
+	//p(a|(e,m))
+	public double probAlem()
+	{
+		return (1/(Math.pow((l+1), m)));
+	}
+	
+	//Next step come up with an estimate for
+	//p(f|(a,e,m))
+	
+	public static void main(String[] args)
+	{
+		
+	}
+	
+}

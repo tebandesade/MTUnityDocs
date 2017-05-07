@@ -1,0 +1,24 @@
+package IBMModel1;
+
+public class WordPair 
+{
+	private int prob;
+	
+	private String english;
+	private String spanish;
+	private int count;
+	
+	public WordPair(String eng,String esp)
+	{
+		english=eng;
+		spanish=esp;
+		count=1;
+	}
+	
+	private String getEnglish()
+	{
+		return english;
+	}
+	
+	
+}

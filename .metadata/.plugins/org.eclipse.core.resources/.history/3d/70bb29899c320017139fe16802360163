@@ -1,0 +1,236 @@
+package MT;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+import edu.stanford.nlp.ling.CoreLabel;
+
+public class Grams 
+{
+	private ArrayList<String[]> eng;
+	private ArrayList<String[]> esp;
+	private int size;
+
+
+	private ArrayList<String[]> translateEng;
+
+
+	public Grams(int sizee) {
+		// TODO Auto-generated constructor stub
+		eng = new ArrayList<String[]>();
+		esp = new ArrayList<String[]>();
+		size=sizee;
+
+	}
+	
+	public Grams(int sizee,boolean termino)
+	{
+		if(termino ==true)
+		{
+			translateEng;
+			
+		}
+	}
+
+	//ONLY IMPLEMENTED WITH GRAM3
+	//ONLY IMPLEMENTED WITH GRAM3
+	public void operate(List<CoreLabel> englishSent, List<CoreLabel> spanishSent)
+	{
+		List<CoreLabel> mayor = (englishSent.size()>=spanishSent.size())?englishSent:spanishSent;
+		//Different token size
+		int min = Math.min(englishSent.size(), spanishSent.size());
+		//System.out.println("SIZE OF MIN: "+min);
+		int minRemainder = min%size;
+		//System.out.println("MINREMAINDER: "+minRemainder);
+		int diff= Math.max(englishSent.size(),spanishSent.size()) - min;
+		//System.out.println("DIFFERENCES: "+diff);
+		if(minRemainder>0)
+		{
+
+			int i; 
+			//for(i=0; i<(min-minRemainder);i++)
+			for(i=0; i<(min);i++)
+			{
+				String[] ingles = new String[3];
+				String[] spanish = new String[3];
+				//THOUGHT FOR 3-gram
+				ingles[0] = clean(englishSent.get(i));
+				spanish[0]= clean(spanishSent.get(i));
+				i++;
+				if(i<min)
+				{
+					ingles[1] = clean(englishSent.get(i));
+					spanish[1]= clean(spanishSent.get(i));
+				}
+
+				i++;
+				if(i<min)
+				{
+					ingles[2] = clean(englishSent.get(i));
+					spanish[2]= clean(spanishSent.get(i));
+				}
+
+				eng.add(ingles);
+				esp.add(spanish);
+				//PASA ALGO CON LOS PARES
+				//NOT SO GOOD IMPLEMENTATION CHECK fOR WITH COMMENT OUT
+			}
+
+		}
+		//Se pierde información porque no se considera lo restante 
+		else
+		{
+
+			int i; 
+			for(i=0; i<min;i++)
+			{
+				String[] ingles =new String[3];
+
+				String[] spanish =new String[3];
+
+				//Consider Stringbuilder (its better)
+				//STRING can be CoreLabel check that out later
+
+
+
+				//THOUGHT FOR 3-gram
+				ingles[0] = clean(englishSent.get(i));
+				spanish[0]= clean(spanishSent.get(i));
+				i++;
+				ingles[1] = clean(englishSent.get(i));
+				spanish[1]= clean(spanishSent.get(i));
+				i++;
+				ingles[2] = clean(englishSent.get(i));
+				spanish[2]= clean(spanishSent.get(i));
+				eng.add(ingles);
+				esp.add(spanish);
+				//PASA ALGO CON LOS PARES
+			}
+
+			if(diff>0)
+			{
+				String[]ingles = new String[3];
+				String[]spanish = new String[3];
+				int remainDiff = diff%3;
+				if(englishSent.size()>=spanishSent.size())
+				{
+
+					///La condicion puede ser el string
+					// While ()
+					//while(i<diff)
+					//{
+
+					//}
+					int j;
+					for(j=0;j<(3-remainDiff) &&(i<englishSent.size());j++)
+					{
+						ingles[j]= clean(englishSent.get(i++));
+
+					}
+					eng.add(ingles);
+					esp.add(spanish);
+				}
+				else
+				{
+					//spanish.get(i)
+					//while(i<diff)
+					//{
+
+					//}
+					//System.out.println("I is: "+i);
+					int j;
+					for(j=0;j<(3-remainDiff)&&(i<spanishSent.size());j++)
+					{
+						//System.out.println("II is: "+i);
+						spanish[j]= clean(spanishSent.get(i++));
+					}
+					eng.add(ingles);
+					esp.add(spanish);
+				}
+
+			}
+
+		}
+
+	}
+	public String clean(CoreLabel coreLabel)
+	{
+		//System.out.println(coreLabel.originalText());
+		return coreLabel.originalText().trim();	
+		//return coreLabel.substring(0, coreLabel.size()-2);
+	}
+
+	public ArrayList<String[]> getEngGrams()
+	{
+		System.out.println("English Grams Size: "+ eng.size());
+		return eng;
+	}
+	public ArrayList<String[]> getEspGrams()
+	{
+		System.out.println("Spanish Grams Size: "+esp.size());
+		return esp;
+	}
+
+	//HAVE TO CHECK IF NEEEDED
+	public void cleanArrays()
+	{
+		eng.clear();
+		esp.clear();
+	}
+
+	public void translate(List<CoreLabel> englishSent)
+	{
+		if(translateEng==null)
+		{
+			translateEng = new ArrayList<String[]>();
+		}
+		if(englishSent.size()>0)
+		{
+			int i=0;
+			int tam = englishSent.size();
+			//Because tri-gram
+			int remainder = tam%3;
+			if(remainder ==0)
+			{
+				add3gram(englishSent,tam,i,3);
+			}
+			else
+			{
+				int loop = tam - remainder;
+				add3gram(englishSent, loop, i,3);
+				add3gram(englishSent, loop, i,remainder);
+			}
+
+		}
+	}
+
+	private void add3gram(List<CoreLabel> englishSent, int tam, int i,int gram)
+	{
+		if(gram==3)
+		{
+			for(i=0;i<tam;i++)
+			{
+				String[] act = new String[3];
+				act[0] = clean(englishSent.get(i));
+				i++;
+				act[1] = clean(englishSent.get(i));
+				i++;
+				act[2] = clean(englishSent.get(i));
+				translateEng.add(act);
+			}
+		}
+		else
+		{
+			for (i = tam;i<englishSent.size();i++)
+			{
+				String[] act = new String[gram];
+				for(int j = 0; j<act.length;j++)
+				{
+					act[j] = clean(englishSent.get(i));
+				}
+			}
+		}
+	}
+}

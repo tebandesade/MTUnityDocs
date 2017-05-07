@@ -1,0 +1,110 @@
+package Testing;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+public class PaginaTraducida {
+	private ArrayList<String> esp;
+	private ArrayList<String> eng;
+	private static PrintWriter outIngles;
+	private static OutputStream oIng;
+	private static OutputStream oEsp;
+	private static PrintWriter outEsp;
+	private static FileOutputStream osEn;
+	private static FileOutputStream osEsp;
+	private String nombrePagina;
+
+
+	public Pagina(String name)	
+	{
+		String archivoEsp="";
+		String archivoEng="";
+		
+			nombrePagina = name;
+			archivoEsp = "res/repo/pagesEsp/debug/train/"+
+					name + "Esp.txt";
+			archivoEng = "res/repo/pagesEng/debug/train/"+
+					name + "Eng.txt";
+
+		try {
+
+			oIng = new FileOutputStream(archivoEng);
+			oEsp = new FileOutputStream(archivoEsp);
+
+			//outIngles = new PrintWriter(archivoEng);
+			//outEsp = new PrintWriter(archivoEsp);
+			esp = new ArrayList();
+			eng = new ArrayList();
+		} 
+
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void addEspSentence(String espa)
+	{
+
+		//outEsp.println(espa);
+		//outIngles.println(engl);
+		try {
+			oEsp.write(espa.getBytes());
+			oEsp.write("\n".getBytes());
+			esp.add(espa);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void addEngSentence(String engl)
+	{
+
+		//outIngles.println(engl);
+		try {
+			System.out.println(oIng);
+			oIng.write(engl.getBytes());
+			oIng.write("\n".getBytes());
+			eng.add(engl);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public ArrayList<String> getEsp()
+	{
+		return esp;
+	}
+
+	public ArrayList<String> getEng()
+	{
+		return eng;
+	}
+
+	public void cerrarOut()
+	{
+		//outEsp.close();
+		//outIngles.close();
+		try {
+			oEsp.close();
+			oIng.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	public String giveName()
+	{
+		return nombrePagina;
+	}
+
+}

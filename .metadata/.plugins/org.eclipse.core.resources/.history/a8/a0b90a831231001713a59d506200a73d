@@ -1,0 +1,19 @@
+package IBMModel1;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Dict 
+{
+	//Can do first word and ArrayList<PROBWORD>
+	//OR can do <firstWord,ArrayList<WordTranslated> and each word has a count
+	HashMap<String,HashMap<WordPair,Integer>> dic ;
+	
+	public Dict()
+	{
+		dic = new HashMap<String,ArrayList<WordPair>>();
+		
+	}
+	
+	if contains wordpaircountprobabilidad
+}

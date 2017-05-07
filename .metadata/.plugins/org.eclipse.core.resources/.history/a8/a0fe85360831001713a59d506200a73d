@@ -1,0 +1,13 @@
+package IBMModel1;
+
+public class Alignment 
+{
+	private int l;
+	private int m;
+	
+	public Alignment(int le,int me)
+	{
+		l =le;
+		m =me;
+	}
+}

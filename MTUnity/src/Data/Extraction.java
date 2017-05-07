@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.DebugGraphics;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 public class Extraction 
 {
@@ -22,60 +23,86 @@ public class Extraction
 	private static int debugInit = 0;
 	private static int debugGlobal = 0;
 	private static ArrayList<Pagina> paginas;
-	
+	private static int iFlag;
+	private static boolean flag;
 	private static boolean helpBug6 =true;
-	
+	private static int fuzzy;
+
+
+	private static final String REGEX1 = "\"doc-keyword\"";
+
 
 	public Extraction()
 	{
-		//LeerArchivos();
-		
+		fuzzy = 0;
+		paginas = new ArrayList<Pagina>();
+		flag=true;
+		iFlag=0;
+		LeerArchivos();
+
 		//Debug count variables	
 		//System.out.println("GLOBAL: "+ debugGlobal);
 		//System.err.println("Error: "+ debugInit);
 		//To debug files
 		//LeerArchivo(TESTFILE);
-		paginas = new ArrayList<Pagina>();
-		String test = "AnimationLayerTest";
-		LeerArchivo(TESTFILE,test);
-		try {
-			br.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		System.out.println("PAGINASNISANISA: "+paginas.size());
+		System.out.println("FUZZY: "+debugGlobal);
+		System.out.println("TOTAl Lines: "+debugInit);
+		//String test = "AnimationLayerTest";
+		//LeerArchivo(TESTFILE,test);
+
 	}
 
 	//Add File Test to parameters
 	public static void LeerArchivo(File file,String nombreArchivo)
 	{
 		boolean ingles = true;
-		
-		Pagina actual = new Pagina(nombreArchivo);
+
+		Pagina actual = new Pagina(nombreArchivo,flag);
+		iFlag++;
 
 		try {
 			br = new BufferedReader(new FileReader(	file));
 			String linea =  br.readLine();
 			while(linea!=null)
 			{
+				if(linea.contains("fuzzy"))
+				{
+					debugGlobal++;
+					fuzzy++;
+				}
 				if(linea.contains("msgid")|| linea.contains("msgstr"))
 				{
-					
-					String text = auxSplit(linea);
-					if(!text.equals("noEsMayorA2"))
+
+
+					if(fuzzy==0)
 					{
-						if(ingles)
+						debugInit++;
+						String text = auxSplit(linea);
+						if(!text.equals("noEsMayorA2"))
 						{
-							ingles = false;
-							actual.addEngSentence(text);
+							//System.out.println("TEXT: " + text);
+							if(ingles)
+							{
+								ingles = false;
+								text = regexHelper(text);
+								actual.addEngSentence(text);
+							}
+							else
+							{
+								ingles=true;
+								text = regexHelper(text);
+								actual.addEspSentence(text);
+							}
+							//System.out.println(text);
 						}
-						else
-						{
-							ingles=true;
-							actual.addEspSentence(text);
-						}
-						//System.out.println(text);
 					}
+					else
+					{
+						cleanFuzzy();
+					}
+
 				}
 
 				linea = br.readLine();
@@ -87,10 +114,19 @@ public class Extraction
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if(iFlag==3)
+		{
+			flagIO();
+		}
+		if(iFlag==4)
+		{
+			iFlag =0;
+			flagIO();
+		}
 		paginas.add(actual);
 		actual.cerrarOut();
-		
-		
+
+
 		if(actual.getEng().size()==actual.getEsp().size())	{
 			System.out.println("true "+actual.getEng().size());
 			debugGlobal++;
@@ -101,7 +137,7 @@ public class Extraction
 				System.err.println("Eng: "+ actual.getEng().get(i));
 				System.err.println("Esp: "+ actual.getEsp().get(i));
 			}
-			*/
+			 */
 		}
 		else
 		{
@@ -114,16 +150,16 @@ public class Extraction
 				System.err.println("Eng: "+ actual.getEng().get(i));
 				System.err.println("Esp: "+ actual.getEsp().get(i));
 			}
-			*/
-			
-			
-			
+			 */
+
+
+
 			//In here we have two debug int counts that will allow us to check how many red (problem) pages
 			debugInit++;
 			debugGlobal++;
 		}
 	}
-	
+
 
 
 	//Reads all Spanish Files from all directories
@@ -132,7 +168,7 @@ public class Extraction
 		File[] listFiles = DIRECTORIOREPO.listFiles();
 		int tamArchivos =  listFiles.length;
 		int count =0 ;
-		
+
 		//Check size of files
 		//System.out.println(tamArchivos);
 		//have to skip first file (.ds_store)
@@ -152,10 +188,12 @@ public class Extraction
 				for(int j = 0; j< tamSubArchivos;j++)
 				{
 					File index2 = index.listFiles()[j];
+
 					if(index2.getName().equalsIgnoreCase("es.po"))
 					{
 						//Passes the current file but gets the name of the Parent directory
 						//Parent directory is the Page's name
+
 						LeerArchivo(index2,index.getName());
 						count++;
 						//System.out.println(index2.getName());
@@ -163,7 +201,7 @@ public class Extraction
 				}
 			}
 		}
-		
+
 		//Count how much spanish files there are 
 		//System.out.println(count);
 	}
@@ -191,17 +229,17 @@ public class Extraction
 		{
 			linea = linea.substring(test, linea.length());
 		}
-		
+
 		//Have to fix bug 6 would put flag and see if it works
 		//MakeGlobalFlag
 		String temp = linea.replace(lang, "");
-		
+
 		// to check if msgid ""
 		if(temp.length()>2)
 		{
 			//System.out.println("Es mayor a 2 "+ temp);
 			return extractMsg(temp);
-			
+
 		}
 		else
 		{
@@ -213,7 +251,7 @@ public class Extraction
 			}
 			else if(helpBug6 && lang.contains("msgstr"))
 			{
-			    return "";
+				return "";
 			}
 			else if (!helpBug6 && lang.contains("msgstr"))
 			{
@@ -224,7 +262,7 @@ public class Extraction
 			{
 				return "noEsMayorA2";
 			}
-		
+
 		}
 	}
 
@@ -233,11 +271,78 @@ public class Extraction
 		int tam = linea.length();  
 		int indexL = tam-1;
 		linea = linea.substring(1, indexL);
-		
+
 		//System.out.println(linea);
 		return linea;
 	}
-	
+
+	public static void flagIO()
+	{
+		if(flag)
+		{
+			flag=false;
+		}
+		else
+		{
+			flag=true;
+		}
+	}
+
+	private static void cleanFuzzy()
+	{
+		fuzzy++;
+		if(fuzzy==3)
+		{
+			fuzzy=0;
+		}
+	}
+
+	private static String regexHelper(String text)
+	{
+		System.out.println("Entra a regex");
+
+		if(text.contains("span class="))
+		{
+			text = text.replace("</span>", "");
+			int begining = text.indexOf("<");
+			int end = text.indexOf(">") +1;
+			String erase = text.substring(begining, end);
+			text = text.replace(erase,"");//"doc-keyword\">", "");
+
+		}	
+		if(text.contains("&160;"))
+		{
+			text= text.replaceAll("[&160;]*", "");
+
+		}	
+
+		//Removed everything between parentesis
+		if(text.contains("("))
+		{
+			text  = text.replaceAll("\\(.*\\)","");
+		}
+		if(text.contains("#"))
+		{
+			text= text.replaceAll("[#]*", "");
+		}
+		if(text.contains("*"))
+		{
+			text= text.replaceAll("[*]*", "");
+		}
+		
+		//DIGITS? Better not
+		/*
+		if(text.matches(".*\\d+.*"))
+		{
+			System.out.println(text);
+		}
+		*/
+		if(text.contains("_"))
+		{
+			text= text.replaceAll("[_]*", "");
+		}
+		return text;
+	}
 
 }
 

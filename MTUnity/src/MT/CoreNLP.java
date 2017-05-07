@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import Testing.PaginaTraducida;
+import Testing.TestController;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -18,6 +20,7 @@ public class CoreNLP
 	private Properties props;
 	private StanfordCoreNLP pipeline;
 	private TrainController tc;
+	private TestController testC;
 
 
 	//Have to remove Parameters if want to do it full scale
@@ -28,6 +31,7 @@ public class CoreNLP
 		props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner");
 		pipeline = new StanfordCoreNLP(props);
 		tc = new TrainController();
+		
 
 		// Se puede hacer siempre la creacion del StanfordCoreNLP pero creo que eso solo
 		// se quiere una vez
@@ -43,27 +47,36 @@ public class CoreNLP
 	//Podria ir en otra clase
 	public void process(String textEng, String textEsp)
 	{
+		//System.out.println("RAW TEXT:"+ textEng);
+		//System.out.println("RAW TEXT:"+ textEsp);
 		//Spanish Annotation --> Doesn't offer right now CORENLP
 		Annotation documentEng = new Annotation(textEng);
 		Annotation documentEsp = new Annotation(textEsp);
 
-
+		//System.out.println("Annotation TEXT:"+ documentEng);
+		//System.out.println("Annotation TEXT:"+ documentEsp);
 		pipeline.annotate(documentEng);
 		pipeline.annotate(documentEsp);
 
 		List<CoreMap>  sentEng = documentEng.get(SentencesAnnotation.class);
 		List<CoreMap>  sentEsp = documentEsp.get(SentencesAnnotation.class);
 
+		//System.out.println("COREMAP TEXT:"+ sentEng);
+		//System.out.println("COREMAP TEXT:"+ sentEsp);
 		//Different size of sentences
 		int mayor = Math.max(sentEng.size(), sentEsp.size());
-		
-		
-		int i;
-		System.out.println("Size of eNGLI: "+sentEng.size());
-		System.out.println("Size of espLI: "+sentEsp.size());
-		System.out.println("MAYOR: "+mayor);
 
-		for(i=0;i<mayor;i++)
+		//DID THIS OUT OF DESPERATION 
+		//TOo many bugs 
+		int min = Math.min(sentEng.size(), sentEsp.size());
+
+
+		int i;
+		//System.out.println("Size of eNGLI: "+sentEng.size());
+		//System.out.println("Size of espLI: "+sentEsp.size());
+		//System.out.println("MAYOR: "+mayor);
+
+		for(i=0;i<min;i++)
 		{
 			//Potencial de investigacion
 			//Invocar qué método es más fácil
@@ -83,7 +96,9 @@ public class CoreNLP
 			{
 
 				//PRINTS SENTENCES TO STRINGS
-			//	if(sentEsp.size()>)
+				//	if(sentEsp.size()>) why dis no?
+
+
 				CoreMap esp = 	sentEsp.get(i);
 				CoreMap eng = 	sentEng.get(i);
 
@@ -125,38 +140,25 @@ public class CoreNLP
 
 				//Have n-gram output is with parentesis
 				//Can take them out with regex (regular expressions)?
-				
+
 				//TOKENSIZE
-				System.out.println("SizeEng: "+englishSent.size());
-				System.out.println("SizeEsp: "+spanishSent.size());
+				//System.out.println("SizeEng: "+englishSent.size());
+				//System.out.println("SizeEsp: "+spanishSent.size());
 
 
 
 				//loopNGrams(englishSent,spanishSent);
-				System.out.println("TokensEng: "+ englishSent);
-				System.out.println("TokensSpa: "+spanishSent);
-				Grams gr =  new Grams(3);
-				gr.operate(englishSent, spanishSent);
-
-				tc.addPair(gr.getEngGrams(),	gr.getEspGrams());
-				
-				//Dont know yet
-				//gr.cleanArrays();
+				//System.out.println("TokensEng: "+ englishSent);
+				//System.out.println("TokensSpa: "+spanishSent);
 
 
-				//Shows string
-				//System.out.println("Eng; "+sentEsp.get(i));
-				//System.out.println("Esp: "+sentEng.get(i));
+				addNgrams(englishSent, spanishSent);
+
+
 			}
 		}
-		//System.out.println(sentEng);
-		//System.out.println(sentEsp);
 
-		//String anoEng = documentEng.get(CoreAnnotations.TokensAnnotation.class);
-		//String anoEsp = documentEsp.get(CoreAnnotations.TokensAnnotation.class);
-
-		//System.out.println(documentEng.get(CoreAnnotations.TokensAnnotation.class));
-		//System.out.println(documentEsp.get(CoreAnnotations.TokensAnnotation.class));
+		//tc.getProbs();
 
 	}
 
@@ -181,4 +183,88 @@ public class CoreNLP
 		}
 
 	}
+
+	
+	//CHECK GOOD LOOKS LIKE YOUR ARE ADDING THE SAME NGRAMS
+	private void addNgrams(List<CoreLabel> englishSent , List<CoreLabel> spanishSent)
+	{
+		Grams gr =  new Grams(3);
+		gr.operate(englishSent, spanishSent);
+		tc.addPair(gr.getEngGrams(),	gr.getEspGrams());
+	}
+
+	private void addNgramsTranslate(List<CoreLabel> englishSent, PaginaTraducida actual )
+	{
+		Grams gr =  new Grams(3,true);
+		gr.translate(englishSent);
+		if(testC!=null)
+		{
+			testC.traducir(gr.getTranslate(),actual);
+
+		}
+		
+	}
+
+	public TrainController giveTC()
+	{
+		return tc;
+	}
+	
+	public TestController giveTestC()
+	{
+		return testC;
+	}
+
+	public StanfordCoreNLP getNLP()
+	{
+		return pipeline;
+	}
+
+	public void createTranslateNGrams(String textEng, PaginaTraducida actual)
+	{
+		System.out.println("TranslateRAW TEXT:"+ textEng);
+		Annotation documentEng = new Annotation(textEng);
+
+		pipeline.annotate(documentEng);
+
+		List<CoreMap>  sentEng = documentEng.get(SentencesAnnotation.class);
+
+		System.out.println("TranslateCOREMAP TEXT:"+ sentEng);
+		//Different size of sentences
+
+
+		int i;
+		int min = sentEng.size();
+		System.out.println("SIZE MIN TRANSLATE: "+min);
+		for(i=0;i<min;i++)
+		{
+
+			//PRINTS SENTENCES TO STRINGS
+			//	if(sentEsp.size()>) why dis no?
+			CoreMap eng = 	sentEng.get(i);
+			List<CoreLabel> englishSent =  eng.get(CoreAnnotations.TokensAnnotation.class);
+
+			//TOKENSIZE
+			System.out.println("TranslateSizeEng: "+englishSent.size());
+			//loopNGrams(englishSent,spanishSent);
+			System.out.println("TranslateTokensEng: "+ englishSent);
+
+			addNgramsTranslate(englishSent,actual);
+		}
+	}
+	public void setTestController(TestController tc)
+	{
+		if(testC==null)
+		{
+			testC = tc;
+		}
+		else
+		{
+			System.out.println("Test controller already exists");
+		}
+	
+	}
+
 }
+
+

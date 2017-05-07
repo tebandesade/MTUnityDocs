@@ -1,0 +1,102 @@
+package Data;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+public class Pagina 
+{ 
+	private ArrayList<String> esp;
+	private ArrayList<String> eng;
+	private static PrintWriter outIngles;
+	private static OutputStream oIng;
+	private static OutputStream oEsp;
+	private static PrintWriter outEsp;
+	private static FileOutputStream osEn;
+	private static FileOutputStream osEsp;
+	private String nombrePagina;
+
+	public Pagina(String name)	
+	{
+			nombrePagina = name;
+			String archivoEsp = "/res/repo/pagesEsp/"+
+			name + "Esp.txt";
+			String archivoEng = "/res/repo/pagesEng/"+
+			name + "Eng.txt";
+			
+		try {
+	
+			 osEn = new FileOutputStream(archivoEng);
+			 osEsp = new FileOutputStream(archivoEsp);
+			//outIngles = new PrintWriter(archivoEng);
+			//outEsp = new PrintWriter(archivoEsp);
+			esp = new ArrayList();
+			eng = new ArrayList();
+		} 
+		
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void addEspSentence(String espa)
+	{
+		
+		//outEsp.println(espa);
+		//outIngles.println(engl);
+				try {
+					oEsp.write(espa.getBytes());
+					esp.add(espa);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	}
+	
+	public void addEngSentence(String engl)
+	{
+		
+		//outIngles.println(engl);
+		try {
+			oIng.write(engl.getBytes());
+			eng.add(engl);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public ArrayList<String> getEsp()
+	{
+		return esp;
+	}
+	
+	public ArrayList<String> getEng()
+	{
+		return eng;
+	}
+	
+	public void cerrarOut()
+	{
+		//outEsp.close();
+		//outIngles.close();
+		try {
+			oEsp.close();
+			oIng.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	public String giveName()
+	{
+		return nombrePagina;
+	}
+}
