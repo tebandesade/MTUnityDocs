@@ -1,0 +1,7 @@
+package IBMModel1;
+
+public class AlignmentProposal 
+{
+	private WordPair wp;
+	
+}

@@ -27,10 +27,11 @@
 <fullyQualifiedTypeName name="IBMModel1.WordPair"/>
 <fullyQualifiedTypeName name="javax.swing.plaf.synth.SynthSpinnerUI"/>
 <fullyQualifiedTypeName name="MT.TrainController"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="MT.CoreNLP"/>
 <fullyQualifiedTypeName name="Testing.TestController"/>
 <fullyQualifiedTypeName name="Testing.FileManager"/>
 <fullyQualifiedTypeName name="javax.swing.text.html.HTMLDocument.Iterator"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="IBMModel1.Alignment"/>
 </qualifiedTypeNameHistroy>

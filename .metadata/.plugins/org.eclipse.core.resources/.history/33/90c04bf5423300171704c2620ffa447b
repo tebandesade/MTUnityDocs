@@ -1,0 +1,67 @@
+package IBMModel1;
+
+public class WordPair 
+{
+	private int prob;
+	
+	private String english;
+	private String spanish;
+	private int count;
+	private int globalCount;
+	
+	//Have to think it
+	//1st thought it can be here check dict implementation
+	private double likelihoodEst;
+	
+	public WordPair(String eng,String esp)
+	{
+		english=eng;
+		spanish=esp;
+		count=1;
+		likelihoodEst=1;
+		
+		//likelihoodEst=1;
+	}
+	
+	public String getEnglish()
+	{
+		return english;
+	}
+	public String getSpanish()
+	{
+		return spanish;
+	}
+	public int getCount()
+	{
+		return count;
+	}
+	
+	public void addCount(int size)
+	{
+		count++;
+		calculateLikeLiHood(size);
+		
+	}
+	
+	public double getLikelihood()
+	{
+		return likelihoodEst;
+	}
+	
+	public double calculateLikeLiHood(int sizeAr)
+	{
+		//This is wrong
+		this.likelihoodEst = (double)(count/sizeAr);
+		return likelihoodEst;
+	}
+
+	public void getPair() 
+	{
+		System.out.println("English: "+english+"| "+"Spanish: "+spanish);
+	}
+	
+
+	
+	
+	
+}

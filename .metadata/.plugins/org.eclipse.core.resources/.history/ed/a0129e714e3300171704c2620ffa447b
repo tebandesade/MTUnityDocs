@@ -1,0 +1,20 @@
+package IBMModel1;
+
+public class Model1 
+{
+	//Archivos
+	//Dictionarr
+	private Dict dict;
+	
+	public Model1()
+	{
+		dict = new Dict();
+	}
+	
+	
+	
+	//Tengo dos sentences
+	SentenceAlignment(eng,esp);
+	
+	
+}

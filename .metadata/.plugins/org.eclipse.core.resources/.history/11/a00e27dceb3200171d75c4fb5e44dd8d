@@ -1,0 +1,73 @@
+package IBMModel1;
+
+import java.util.ArrayList;
+
+public class Alignment 
+{
+	private int l;
+	private int m;
+	private String[] tokensEng;
+	private String[] tokensEsp;
+	
+	//Try
+	private ArrayList<Alignment> alignments;
+	
+	
+	private int index;
+	
+	//Receives sentEng(le), sentEsp(me)
+	public Alignment(String[] le,String[] me)
+	{
+		tokensEng = le;
+		tokensEsp = me;
+		
+		l =le.length;
+		m =me.length;
+		System.err.println("L: "+l);
+		System.err.println("M: "+m);
+	}
+	
+	//In IBM model 1 all allignments a are equally likely
+	//This will get us off the ground. It is simple.
+	//p(a|(e,m))
+	public double probAlem()
+	{
+		return (1/(Math.pow((l+1), m)));
+	}
+	
+	
+	public void align()
+	{
+		int i ;
+		String[] mayor = (tokensEng.length>=tokensEsp.length?tokensEng:tokensEsp);
+		String[] menor = (mayor==tokensEng?tokensEsp:tokensEng);
+		int sizeMin = menor.length;
+		int sizeMax = mayor.length;
+		for(i=0;i<sizeMax;i++)
+		{
+			int j;
+			for(j=0;j<)
+		}
+	}
+	
+	//Next step come up with an estimate for
+	//p(f|(a,e,m))
+	
+	public static void main(String[] args)
+	{
+		String[] eng = new String[3];
+		eng[0] = "The";
+		eng[1] = "dog";
+		eng[2] = "barks";
+		
+		String[] esp = new String[3];
+		esp[0] = "El";
+		esp[1] = "perro";
+		esp[2] = "ladra";
+		
+		new Alignment(eng,esp);
+		
+		
+	}
+	
+}

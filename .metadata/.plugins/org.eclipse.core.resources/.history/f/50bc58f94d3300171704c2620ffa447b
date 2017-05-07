@@ -1,0 +1,13 @@
+package IBMModel1;
+
+public class Model1 
+{
+	//Archivos
+	//Dictionarr
+	public Model1()
+	{
+		
+	}
+	
+	
+}

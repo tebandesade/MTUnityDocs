@@ -1,0 +1,15 @@
+package IBMModel1;
+
+public class Model1 
+{
+	//Archivos
+	//Dictionarr
+	Private Dict dict;
+	
+	public Model1()
+	{
+		
+	}
+	
+	
+}

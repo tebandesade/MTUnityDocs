@@ -1,0 +1,12 @@
+package IBMModel1;
+
+public class AlignmentProposal 
+{
+	private ArrayList<WordPair> wPairs;
+	
+	public AlignmentProposal)
+	{
+		wPairs = new ArrayList<WordPair>();
+		wp = pair; 
+	}
+}

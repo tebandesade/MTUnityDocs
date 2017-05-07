@@ -1,0 +1,158 @@
+package IBMModel1;
+
+import java.util.ArrayList;
+
+public class SentenceAlignment 
+{
+	private int l;
+	private int m;
+	private String[] tokensEng;
+	private String[] tokensEsp;
+	private double peaf;
+	
+	
+	//Uniform alignments
+	private ArrayList<AlignmentProposal> alignments;
+	
+	
+	private int index;
+	
+	//Receives sentEng(le), sentEsp(me)
+	public SentenceAlignment(String[] le,String[] me)
+	{
+		tokensEng = le;
+		tokensEsp = me;
+		
+		l =le.length;
+		m =me.length;
+		align();
+		System.err.println("L: "+l);
+		System.err.println("M: "+m);
+		
+		//peaf = probAlem();
+		
+	}
+	
+	//Tocaria correr todo el programa con un alignment igual (todos con todos)
+	//Saca un diccionario 
+	//Se recorren los alignments actuales, se sacan las probabilidades de cada uno
+	//Se cortan los menores, se sacan los max.
+	
+	//In IBM model 1 all allignments a are equally likely
+	//This will get us off the ground. It is simple.
+	//p(a|(e,m))
+	public double probAlem()
+	{
+		return (1/(Math.pow((l+1), m)));
+	}
+	
+	
+	public void align()
+	{
+		checkti();
+	}
+	
+	private void checkti()
+	{
+		boolean eng = false;
+		if(tokensEng.length>=tokensEsp.length)
+		{
+			eng = true;
+			int max = tokensEng.length;
+			int min = tokensEsp.length;
+			ti(tokensEng,tokensEsp,max,min,eng);
+		}
+		else
+		{
+			eng= false;
+			int max = tokensEsp.length;
+			int min = tokensEng.length;
+			
+			ti(tokensEng, tokensEsp,max,min,eng);
+		}
+	}
+	
+	private void ti(String[] tokensEng2,String[] tokensEsp2,int max, int min,boolean eng)
+	{
+		String[] mayor = (eng?tokensEng:tokensEsp);
+		String[] menor = (!eng?tokensEsp:tokensEng);
+		
+//CREO QUE ESTO VA ACA
+			AlignmentProposal ap = new AlignmentProposal();
+		int i ;
+		for(i=0;i<max;i++)
+		{
+			
+			//CREO QUE ESTO VA ACA
+					//	AlignmentProposal ap = new AlignmentProposal();
+			int j;
+			for(j=0;j<min;j++)
+			{
+				
+				//CREO QUE ESTO VA ACA
+						//	AlignmentProposal ap = new AlignmentProposal();
+				if(eng)
+				{
+					//AlignmentProposal ap = new AlignmentProposal();
+					WordPair wp = new WordPair(tokensEng2[i], tokensEsp2[j]);
+					ap.addWordPair(wp);
+					
+					wp.getPair();
+					
+				}
+				else
+				{
+					//AlignmentProposal ap = new AlignmentProposal();
+					WordPair wp = new WordPair(tokensEng2[i], tokensEsp2[j]);
+					ap.addWordPair(wp);
+					alignments.add(ap)
+					wp.getPair();
+				}
+			
+				
+			}
+		}
+	}
+	
+	public void calculatePEAFPair(WordPair wp,Dict dict)
+	{
+	
+		peaf *= wp.calculateLikeLiHood(dict.getDictionary().get(wp.getEnglish()).size());
+	}
+	
+	//Next step come up with an estimate for
+	//p(f|(a,e,m))
+	
+	public static void main(String[] args)
+	{
+		/* This is 3x4
+		String[] eng = new String[3];
+		eng[0] = "I";
+		eng[1] = "like";
+		eng[2] = "tacos";
+		
+		String[] esp = new String[4];
+		esp[0] = "Me";
+		esp[1] = "gustan";
+		esp[2] = "los";
+		esp[3] = "tacos";
+		
+		 */
+		
+		String[] eng = new String[3];
+		eng[0] = "I";
+		eng[1] = "like";
+		eng[2] = "April";
+		
+		String[] esp = new String[3];
+		esp[0] = "Me";
+		esp[1] = "gusta";
+		esp[2] = "Abril";
+		
+		
+		new SentenceAlignment(eng,esp);
+		
+		
+	}
+	
+}

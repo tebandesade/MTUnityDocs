@@ -29,13 +29,16 @@ public class Dict
 				if(actual.getSpanish().equalsIgnoreCase(esp))
 				{
 					found = true;
-					dic.get(eng).get(i).addCount(dic.get(eng).size());
+					dic.get(eng).get(i).addCount(dic.get(eng));
 				}
 			}
 			if(found==false)
 			{
+				//BUGGG
 				WordPair temp  = new WordPair(eng, esp);
+				//
 				dic.get(eng).add(temp);
+				dic.get(eng).get(i).addCount(dic.get(eng));
 			}
 		}
 		else
@@ -43,8 +46,20 @@ public class Dict
 			WordPair pair = new WordPair(eng, esp);
 			ArrayList<WordPair> ar = new ArrayList<>();
 			ar.add(pair);
+			pair.addCount(ar);
+			
 			dic.put(eng,ar);
 		}
+	}
+	
+	public HashMap<String, ArrayList<WordPair>> getDictionary()
+	{
+		return this.dic;
+	}
+	
+	public Dict getDictionaryClass()
+	{
+		return this;
 	}
 	
 	/*
@@ -62,5 +77,5 @@ public class Dict
 	}
 	*/
 	
-	if contains wordpaircountprobabilidad
+	//if contains wordpaircountprobabilidad
 }

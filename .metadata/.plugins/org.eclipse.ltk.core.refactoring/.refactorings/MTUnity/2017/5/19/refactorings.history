@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;IBMModel1.Alignment.java&apos; to &apos;SentenceAlignment.java&apos;&#x0A;- Original project: &apos;MTUnity&apos;&#x0A;- Original element: &apos;IBMModel1.Alignment.java&apos;&#x0A;- Renamed element: &apos;IBMModel1.SentenceAlignment.java&apos;" description="Rename compilation unit &apos;Alignment.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;IBMModel1{Alignment.java" name="SentenceAlignment.java" references="false" stamp="1494173840396" version="1.0"/>
+</session>
