@@ -21,10 +21,12 @@ public class PaginaTraducida {
 	public PaginaTraducida(String name)	
 	{
 		String archivoEsp="";
-		
-			nombrePagina = name;
-			archivoEsp = "res/TestScore/traduccion/3gram/"+
-					name;
+
+		nombrePagina = name;
+
+		//archivoEsp = "res/TestScore/traduccion/3gram/"+
+		archivoEsp = "res/TestScore/traduccion/ibmResultado/"+
+				name;
 
 		try {
 

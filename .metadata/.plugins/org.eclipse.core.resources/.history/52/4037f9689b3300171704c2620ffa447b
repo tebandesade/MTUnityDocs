@@ -1,0 +1,125 @@
+package IBMModel1;
+
+import java.util.ArrayList;
+
+public class WordPair 
+{
+	private int prob;
+
+	private String english;
+	private String spanish;
+	private int count;
+	//private int globalCount;
+
+	//Have to think it
+	//1st thought it can be here check dict implementation
+	private double likelihoodEst;
+
+	private String[] englishAr;
+
+	private String[] spanishar;
+
+	public WordPair(String eng,String esp)
+	{
+		english=eng;
+		spanish=esp;
+		count=0;
+		likelihoodEst=0;
+		//globalCount=0;
+
+		//likelihoodEst=1;
+	}
+
+	public WordPair(String[] eng, String[] esp) {
+		// TODO Auto-generated constructor stub
+		englishAr=eng;
+		spanishar=esp;
+		count=0;
+		likelihoodEst=0;
+	}
+
+	public String getEnglish()
+	{
+		return english;
+	}
+	public String getSpanish()
+	{
+		return spanish;
+	}
+	public int getCount()
+	{
+		return count;
+	}
+
+	public void addCount(ArrayList<WordPair> arrayList)
+	{
+		count++;
+		//System.out.println("COUNT IS :"+count);
+		int globalCount =  getTotalFromArray(arrayList);
+		//calculateLikeLiHood(globalCount);
+		reCalculateLikeLiHood(arrayList,globalCount);
+
+
+	}
+
+	private void reCalculateLikeLiHood(ArrayList<WordPair> arrayList,int globalCount)
+	{
+		int i ;
+		int tam = arrayList.size();
+		for(i=0;i<tam;i++)
+		{
+			WordPair actual = arrayList.get(i);
+			actual.calculateLikeLiHood(globalCount);
+		}
+	}
+	private int getTotalFromArray(ArrayList<WordPair> arrayList)
+	{
+		int i ;
+		int tam = arrayList.size();
+		int total = 0;
+		for(i=0;i<tam;i++)
+		{
+			//System.out.println("THE AMOUNT OF COUNTS IS: "+arrayList.get(i).getCount());
+			total += arrayList.get(i).getCount();
+		}
+		return total;
+	}
+
+	public double getLikelihood()
+	{
+		return this.likelihoodEst;
+	}
+
+	public double calculateLikeLiHood(int totalSize)
+	{
+		this.likelihoodEst = (double)(count/(double)totalSize);
+		System.out.println("LikeLiHoodTest: "+likelihoodEst);
+		return this.likelihoodEst;
+	}
+
+	public void getPair() 
+	{
+		System.out.println("PAIR: "+english+"| "+spanish);
+	}
+
+	public String[] getEngAr()
+	{
+		return this.englishAr;
+	}
+	public String[] getEspAr()
+	{
+		return this.spanishar;
+	}
+
+	public void setWordPair(WordPair wordPair) 
+	{
+		this = wordPair;
+	}
+	
+	
+
+
+
+
+
+}

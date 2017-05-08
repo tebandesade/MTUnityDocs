@@ -1,0 +1,165 @@
+package IBMModel1;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+import edu.stanford.nlp.ling.CoreLabel;
+
+public class SentenceAlignment 
+{
+	private int l;
+	private int m;
+	
+	private List<CoreLabel> tokensEng;
+	private List<CoreLabel> tokensEsp;
+
+
+	//Uniform alignments
+	private  ArrayList<AlignmentProposal> alignments;
+	private Dict dic;
+
+
+	private int index;
+
+	//Receives sentEng(le), sentEsp(me)
+	public SentenceAlignment(List<CoreLabel> Eng, List<CoreLabel> Esp, Dict dict)
+	{
+		this.alignments= new ArrayList<AlignmentProposal>();
+		this.dic = dict;
+		this.tokensEng = Eng;
+		this.tokensEsp = Esp;
+
+		this.l =tokensEng.size();
+		this.m =tokensEsp.size();
+		System.out.println("L: "+l);
+		System.out.println("M: "+m);
+
+
+		//peaf = probAlem();
+
+	}
+
+	public List<CoreLabel> getEnglishTokens()
+	{
+		return tokensEng;
+	}
+	public List<CoreLabel> getSpanishTokens()
+	{
+		return tokensEsp;
+	}
+	
+	public void setEnglishTokens(List<CoreLabel> tokens)
+	{
+		this.tokensEng = tokens;
+	}
+	public void setSpanishTokens(List<CoreLabel> tokens)
+	{
+		this.tokensEsp = tokens;
+	}
+	//Tocaria correr todo el programa con un alignment igual (todos con todos)
+	//Saca un diccionario 
+	//Se recorren los alignments actuales, se sacan las probabilidades de cada uno
+	//Se cortan los menores, se sacan los max.
+
+	//In IBM model 1 all allignments a are equally likely
+	//This will get us off the ground. It is simple.
+	//p(a|(e,m))
+	public double probAlem()
+	{
+		return (1/(Math.pow((l+1), m)));
+	}
+
+
+	public void align()
+	{
+		checkti();
+	}
+
+	private void checkti()
+	{
+		boolean eng = false;
+		if(this.tokensEng.size()>=this.tokensEsp.size())
+		{
+			eng = true;
+			int max = this.tokensEng.size();
+			int min = this.tokensEsp.size();
+			ti(this.tokensEng,this.tokensEsp,max,min,eng);
+		}
+		else
+		{
+			eng= false;
+			int max = this.tokensEsp.size();
+			int min = this.tokensEng.size();
+
+			ti(this.tokensEng, this.tokensEsp,max,min,eng);
+		}
+	}
+
+	private void ti(List<CoreLabel> tokensEng2,List<CoreLabel> tokensEsp2,int max, int min,boolean eng)
+	{
+		//String[] mayor = (eng?tokensEng:tokensEsp);
+		//String[] menor = (!eng?tokensEsp:tokensEng);
+
+		//CREO QUE ESTO VA ACA
+		//AlignmentProposal ap = new AlignmentProposal();
+		int i ;
+		for(i=0;i<max;i++)
+		{
+			//Creo que esto va aca
+			//AlignmentProposal ap = new AlignmentProposal();
+
+			int j;
+			for(j=0;j<min;j++)
+			{
+				//Creo que esto va aca
+				AlignmentProposal ap = new AlignmentProposal();
+				if(eng)
+				{
+					WordPair wp = new WordPair(tokensEng2.get(i).originalText(), tokensEsp2.get(j).originalText());
+					  wp = dic.addPair(wp);
+					//System.out.println("TESTPROB: "+ wp.getLikelihood());
+					ap.addWordPair(wp);
+					wp.getPair();
+
+				}
+				else
+				{
+					WordPair wp = new WordPair(tokensEng2.get(j).originalText(), tokensEsp2.get(i).originalText());
+
+					//Se cambia dinamicamente la probabilidad agregada
+					//Toca debug y test para ver si esto pasa y si si do it.
+					wp = dic.addPair(wp);
+					//System.out.println("TESTPROB: "+ wp.getLikelihood());
+					ap.addWordPair(wp);
+					wp.getPair();
+				}
+				ap.initializeProbability(l, m);
+				alignments.add(ap);
+			}
+
+		}
+
+	}
+
+
+
+	public ArrayList<AlignmentProposal> getSentenceAlignments()
+	{
+		return alignments;
+	}
+
+	public void setSentenceAlignments(ArrayList<AlignmentProposal> pro)
+	{
+		alignments =pro;
+	}
+
+	//Next step come up with an estimate for
+	//p(f|(a,e,m))
+
+	public static void main(String[] args)
+	{
+
+	}
+}

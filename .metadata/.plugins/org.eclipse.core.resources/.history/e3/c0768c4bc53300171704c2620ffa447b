@@ -1,0 +1,172 @@
+package IBMModel1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Testing.PaginaTraducida;
+import edu.stanford.nlp.ling.CoreLabel;
+
+public class Model1 
+{
+	//Archivos
+	//Dictionarr
+	private Dict dict;
+	private ArrayList<SentenceAlignment> sentenceAlignments;
+	private ArrayList<AlignmentProposal> MaxAlignments;
+
+	public Model1()
+	{
+		sentenceAlignments = new ArrayList<SentenceAlignment>();
+		
+
+		/*
+		sentenceAlignments = new ArrayList<SentenceAlignment>();
+		ArrayList<WordPair> arg = new ArrayList<WordPair>();
+		// This is 3x4
+		String[] eng = new String[3];
+		eng[0] = "I";
+		eng[1] = "like";
+		eng[2] = "tacos";
+
+		String[] esp = new String[4];
+		esp[0] = "Me";
+		esp[1] = "gusta";
+		esp[2] = "los";
+		esp[3] = "tacos";
+		WordPair wp = new WordPair(eng, esp);
+		arg.add(wp);
+
+
+		String[] eng1 = new String[3];
+		eng1[0] = "I";
+		eng1[1] = "like";
+		eng1[2] = "April";
+
+		String[] esp1 = new String[3];
+		esp1[0] = "Me";
+		esp1[1] = "gusta";
+		esp1[2] = "Abril";
+		WordPair wp1 = new WordPair(eng1, esp1);
+		arg.add(wp1);
+		 */
+		dict = new Dict();
+	
+		//init(arg);
+	}
+
+
+
+	//Tengo dos sentences
+
+	public void init(List<CoreLabel> englishSent, List<CoreLabel> spanishSent)
+	{
+
+		SentenceAlignment act = new SentenceAlignment(englishSent, spanishSent,dict);
+		act.align();
+		sentenceAlignments.add(act);
+		//System.out.println("IBMMODELSENTCEALIGNMENTS: "+ sentenceAlignments.size());
+
+	}
+
+	public static void main(String[] args)
+	{
+		Model1 act = new Model1();
+	}
+
+	public void loopSentenceAlignments()
+	{
+		int i ;
+		int tam = sentenceAlignments.size();
+		System.out.println(tam);
+	
+		 MaxAlignments = new ArrayList<AlignmentProposal>(tam);
+		for(i=0;i<tam;i++)
+		{
+			SentenceAlignment actual = sentenceAlignments.get(i);
+			int sizze = actual.getSentenceAlignments().size();
+			int j ; 
+			double mayor = Double.MIN_VALUE;
+			AlignmentProposal max= actual.getSentenceAlignments().get(0);
+			for(j=1;j<sizze;j++)
+			{
+				AlignmentProposal ap = actual.getSentenceAlignments().get(j);
+				double peaf = ap.calculatePEAF();
+				if(peaf>=mayor)
+				{
+					mayor = peaf;
+					max = ap;
+				}
+			}
+			MaxAlignments.add(max);
+		}
+		createMaxDic();
+	}
+	
+	public void createMaxDic()
+	{
+		 Dict maxDict = new Dict();
+		int i ;
+		int tam =MaxAlignments.size();
+		for(i=0;i<tam;i++)
+		{
+			int j ;
+			ArrayList<WordPair> ap = MaxAlignments.get(i).getWordPairs();
+			int sizeAP = ap.size();
+			for(j=0;j<sizeAP;j++)
+			{
+				maxDict.addPair(MaxAlignments.get(i).getWordPairs().get(j));
+			}
+		}
+		System.out.println("Previo DIC: "+dict);
+		this.setDict(maxDict);
+		System.out.println("Nuevo DIC: "+dict);
+	}
+
+	public void setDict(Dict dic)
+	{
+		this.dict = dic;
+	}
+
+
+
+	public void translate(List<CoreLabel> englishSent, PaginaTraducida actual) 
+	{
+
+	   int size = englishSent.size();
+	   int i ;
+	   System.out.println("Size of sentence toTrans: "+ size );
+	   String act ="";
+	   for(i=0;i<size;i++)
+	   {
+		  String eng = englishSent.get(0).originalText();
+		  ArrayList<WordPair>  wpActual = dict.getDictionary().get(eng);
+		  int tam = wpActual.size();
+		  System.out.println("Size of sentence WordpairtoTrans: "+  wpActual.size() );
+		   int j;
+		   double max = Double.MIN_VALUE;
+		   WordPair mazimo = null ;
+		   for(j=0;j<tam;j++)
+		   {
+			  if(wpActual.get(j).getLikelihood()>=max)
+			  {
+				  mazimo =wpActual.get(j);
+				  max= mazimo.getLikelihood();
+			  }
+		   }
+		   if(mazimo==null)
+		   {
+			   System.out.println("MAZIMO IS : null");
+		   }
+		   else
+		   {
+				  act = act + mazimo.getSpanish();
+		   }
+		   
+		   
+	   }
+	   actual.addEspSentence(act);
+	}
+
+
+
+}

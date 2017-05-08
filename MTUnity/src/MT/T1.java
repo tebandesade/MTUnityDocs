@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import IBMModel1.Model1;
 import Testing.FileManager;
 import Testing.TestController;
 
@@ -19,18 +20,25 @@ public class T1
 
 		private static final File DIRECTORIOENG = new File ("res/repo/pagesEng/debug/train/");
 		private static final File DIRECTORIOESP = new File ("res/repo/pagesEsp/debug/train/");
+		
+		private static final File DIRECTORIOTESTENG = new File ("res/repo/pagesEng/debug/test/");
+		private static final File DIRECTORIOTESTESP = new File ("res/repo/pagesEsp/debug/test/");
 
 	private static BufferedReader brEng ;
 	private static BufferedReader brEsp ;
 	private static CoreNLP sNLP;
 	private FileManager fm;
+	private Model1 model1;
+	
 
 	public T1() throws FileNotFoundException
 	{
-		sNLP = new CoreNLP();
+		model1 = new Model1();
+		sNLP = new CoreNLP(model1);
 		readFiles();
+		model1.loopSentenceAlignments();
 		fm = new FileManager(sNLP);
-		sNLP.setTestController(fm.getTestController());
+		//sNLP.setTestController(fm.getTestController());
 		fm.LeerArchivos();
 		
 		//readFile();
@@ -63,16 +71,10 @@ public class T1
 
 			}
 
-
-
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			brEng.close();
 			brEsp.close();
+
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,12 +93,14 @@ public class T1
 
 	public void readFiles()
 	{
-		File[] listFilesEng = DIRECTORIOENG.listFiles();
+		File[] listFilesEng = DIRECTORIOENG.listFiles(); 
+		//File[] listFilesEng = DIRECTORIOENG.listFiles();
+		//File[] listFilesEsp = DIRECTORIOESP.listFiles();
 		File[] listFilesEsp = DIRECTORIOESP.listFiles();
 		//System.out.println("TAM ARCHIVOS "+listFilesEng.length);
 		//System.out.println("TAM ARCHIVOS "+listFilesEng.length);
 		int tamArchivos =  listFilesEng.length;
-
+		System.out.println("Size of files: "+ tamArchivos);
 
 		for (int i = 1; i <tamArchivos; i++) {
 

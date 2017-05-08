@@ -3,6 +3,8 @@ package IBMModel1;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import edu.stanford.nlp.ling.CoreLabel;
+
 public class Dict 
 {
 	//Can do first word and ArrayList<PROBWORD>
@@ -15,8 +17,12 @@ public class Dict
 		
 	}
 	
-	public void addPair(String eng, String esp)
+	public WordPair addPair(WordPair wp)
 	{
+		String eng = wp.getEnglish();
+		eng = eng.toLowerCase();
+		String esp = wp.getSpanish();
+		esp =esp.toLowerCase();
 		if(dic.containsKey(eng))
 		{
 		
@@ -25,11 +31,15 @@ public class Dict
 			boolean found =false;
 			for(i=0;i<tam&&found==false;i++)
 			{
-				WordPair actual  = dic.get(eng).get(i);
-				if(actual.getSpanish().equalsIgnoreCase(esp))
+				//WordPair actual  = 
+						dic.get(eng).get(i);
+				if(dic.get(eng).get(i).getSpanish().equalsIgnoreCase(esp))
 				{
 					found = true;
+					
 					dic.get(eng).get(i).addCount(dic.get(eng));
+				//	wp = dic.get(eng).get(i);
+					return dic.get(eng).get(i);
 				}
 			}
 			if(found==false)
@@ -37,19 +47,23 @@ public class Dict
 				//BUGGG
 				WordPair temp  = new WordPair(eng, esp);
 				//
-				dic.get(eng).add(temp);
+				dic.get(eng).add(wp);
 				dic.get(eng).get(i).addCount(dic.get(eng));
+				
+				return wp;
 			}
 		}
 		else
 		{
-			WordPair pair = new WordPair(eng, esp);
+			//WordPair pair = new WordPair(eng, esp);
 			ArrayList<WordPair> ar = new ArrayList<>();
-			ar.add(pair);
-			pair.addCount(ar);
+			ar.add(wp);
+			wp.addCount(ar);
 			
 			dic.put(eng,ar);
 		}
+		return wp;
+		
 	}
 	
 	public HashMap<String, ArrayList<WordPair>> getDictionary()
@@ -57,10 +71,18 @@ public class Dict
 		return this.dic;
 	}
 	
+
+	
 	public Dict getDictionaryClass()
 	{
 		return this;
 	}
+	
+	public void setDic(HashMap<String,ArrayList<WordPair>> hm)
+	{
+		this.dic = hm;
+	}
+	
 	
 	/*
 	public boolean pairExist(String eng, String esp)

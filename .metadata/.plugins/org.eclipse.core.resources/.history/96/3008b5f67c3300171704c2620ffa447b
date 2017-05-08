@@ -1,0 +1,56 @@
+package IBMModel1;
+
+import java.util.ArrayList;
+
+public class Model1 
+{
+	//Archivos
+	//Dictionarr
+	private Dict dict;
+	private ArrayList<SentenceAlignment> sentenceAlignments;
+
+	public Model1()
+	{
+		dict = new Dict();
+	}
+
+
+
+	//Tengo dos sentences
+
+	public void init()
+	{
+		ArrayList<WordPair> arg = new ArrayList<WordPair>();
+		// This is 3x4
+		String[] eng = new String[3];
+		eng[0] = "I";
+		eng[1] = "like";
+		eng[2] = "tacos";
+
+		String[] esp = new String[4];
+		esp[0] = "Me";
+		esp[1] = "gusta";
+		esp[2] = "los";
+		esp[3] = "tacos";
+		WordPair wp = new WordPair(eng, esp);
+		arg.add(wp);
+
+
+		String[] eng1 = new String[3];
+		eng1[0] = "I";
+		eng1[1] = "like";
+		eng1[2] = "April";
+
+		String[] esp1 = new String[3];
+		esp1[0] = "Me";
+		esp1[1] = "gusta";
+		esp1[2] = "Abril";
+		WordPair wp1 = new WordPair(eng1, esp1);
+		arg.add(wp1);
+		dic = new Dict();
+		new SentenceAlignment(eng,esp,dict);
+	}
+
+
+
+}

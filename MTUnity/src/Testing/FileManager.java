@@ -21,11 +21,11 @@ public class FileManager
 	public FileManager(CoreNLP nlpp)
 	{
 		nlp = nlpp;
-		testC = new TestController(nlp.giveTC());
+	//	testC = new TestController(nlp.giveTC());
 	}
 
 
-	public static void LeerArchivos()
+	public void LeerArchivos()
 	{
 		System.out.println("ENTERS TO READ FM FILES: ");
 		File[] listFiles = DIRECTORIOENG.listFiles();
@@ -56,9 +56,9 @@ public class FileManager
 			while(linea!=null)
 			{
 
-			nlp.createTranslateNGrams(linea,actual);
+			//nlp.createTranslateNGrams(linea,actual);
 
-
+				nlp.translate(linea,actual);
 
 
 				linea = br.readLine();

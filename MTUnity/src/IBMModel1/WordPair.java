@@ -1,6 +1,9 @@
 package IBMModel1;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import edu.stanford.nlp.ling.CoreLabel;
 
 public class WordPair 
 {
@@ -21,10 +24,10 @@ public class WordPair
 
 	public WordPair(String eng,String esp)
 	{
-		english=eng;
-		spanish=esp;
-		count=0;
-		likelihoodEst=0;
+		this.english=eng;
+		this.spanish=esp;
+		this.count=0;
+		this.likelihoodEst=0;
 		//globalCount=0;
 
 		//likelihoodEst=1;
@@ -93,13 +96,13 @@ public class WordPair
 	public double calculateLikeLiHood(int totalSize)
 	{
 		this.likelihoodEst = (double)(count/(double)totalSize);
-		//System.out.println("LikeLiHood: "+likelihoodEst);
+		//System.out.println("LikeLiHoodTest: "+likelihoodEst);
 		return this.likelihoodEst;
 	}
 
 	public void getPair() 
 	{
-		System.out.println("PAIR: "+english+"| "+spanish);
+		System.out.println("PAIR: "+english+"|"+spanish);
 	}
 
 	public String[] getEngAr()
@@ -110,9 +113,14 @@ public class WordPair
 	{
 		return this.spanishar;
 	}
+	
+	public void setWordPair(WordPair wp)
+	{
+		
+	}
+	
+	
 
-
-
-
+	
 
 }

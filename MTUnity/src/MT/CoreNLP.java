@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import IBMModel1.Model1;
 import Testing.PaginaTraducida;
 import Testing.TestController;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -21,17 +22,22 @@ public class CoreNLP
 	private StanfordCoreNLP pipeline;
 	private TrainController tc;
 	private TestController testC;
+	private Model1 model1;
+	private int linesTrained;
 
 
 	//Have to remove Parameters if want to do it full scale
 	//	public CoreNLP(String textEng, String textEsp)
-	public CoreNLP()
+	public CoreNLP(Model1 model)
 	{
+		//linesTrained =0;
 		props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner");
 		pipeline = new StanfordCoreNLP(props);
-		tc = new TrainController();
-		
+		model1 =model;
+
+		//tc = new TrainController();
+
 
 		// Se puede hacer siempre la creacion del StanfordCoreNLP pero creo que eso solo
 		// se quiere una vez
@@ -64,7 +70,7 @@ public class CoreNLP
 		//System.out.println("COREMAP TEXT:"+ sentEng);
 		//System.out.println("COREMAP TEXT:"+ sentEsp);
 		//Different size of sentences
-		int mayor = Math.max(sentEng.size(), sentEsp.size());
+		//int mayor = Math.max(sentEng.size(), sentEsp.size());
 
 		//DID THIS OUT OF DESPERATION 
 		//TOo many bugs 
@@ -124,6 +130,7 @@ public class CoreNLP
 
 				//Gets n-grams with min 3 and max 3
 				//SEE IF YOU CAN MIX THIS METHOD WITH YOUR IMPLEMENTATION OF GRAMS
+				//NEXT LAYER
 				//englishSent = CollectionUtils.getNGrams((List) englishSent, 3,3);
 				//spanishSent = CollectionUtils.getNGrams((List) spanishSent, 3, 3);
 
@@ -151,119 +158,158 @@ public class CoreNLP
 				//System.out.println("TokensEng: "+ englishSent);
 				//System.out.println("TokensSpa: "+spanishSent);
 
+				//System.out.println("English Nsentence: "+englishSent);
+				//List<CoreLabel> test= englishSent;
+				//System.out.println("English NsentenceGet0: "+englishSent.get(0));
+				//System.out.println("English Nsentence size: "+englishSent.size());
+				//System.out.println("Spanish sentence: "+spanishSent);
+				//System.out.println("Spanish Nsentence size: "+spanishSent.size());
+				//addNgrams(englishSent, spanishSent);
 
-				addNgrams(englishSent, spanishSent);
 
+				model1.init(englishSent, spanishSent);
+
+
+				//linesTrained++;
 
 			}
+
 		}
+		//System.out.println("Lines trained: "+linesTrained);
 
 		//tc.getProbs();
 
 	}
 
-	public static void main (String[] args)
+
+	public void translate(String textEng, PaginaTraducida actual)
 	{
-		//String testEng = "Unity uses <span class=\"doc-keyword\">Animation Layers</span> for managing complex state machines for different body parts. An example of this is if you have a lower-body layer for walking-jumping, and an upper-body layer for throwing objects / shooting.";
-		//String testEsp = "Unity usa <span class=\"doc-keyword\">Animation Layers</span> para manejar state machines complejos para differente partes del cuerpo. Un ejemplo de esto es si se tiene una capa inferior de cuerpo para caminar-saltar, y una capa superior de cuerpo para tirar objetos / disparar.";
 
-		//new CoreNLP(testEng,testEsp);
-	}
-
-	private void loopNGrams(List englishSent, List spanishSent)
-	{
-		int min = Math.min(englishSent.size(),spanishSent.size());
-		int i;
-		//Have to think of somethin (look above) to fix the different sizes
-		for(i = 0; i<min;i++)
-		{
-			//It is object,but object of what type
-			//Workaround quick make it tostring
-			//PairNGram pair = new PairNGram(englishSent.get(i).toString(),spanishSent.get(i).toString());
-		}
-
-	}
-
-	
-	//CHECK GOOD LOOKS LIKE YOUR ARE ADDING THE SAME NGRAMS
-	private void addNgrams(List<CoreLabel> englishSent , List<CoreLabel> spanishSent)
-	{
-		Grams gr =  new Grams(3);
-		gr.operate(englishSent, spanishSent);
-		tc.addPair(gr.getEngGrams(),	gr.getEspGrams());
-	}
-
-	private void addNgramsTranslate(List<CoreLabel> englishSent, PaginaTraducida actual )
-	{
-		Grams gr =  new Grams(3,true);
-		gr.translate(englishSent);
-		if(testC!=null)
-		{
-			testC.traducir(gr.getTranslate(),actual);
-
-		}
-		
-	}
-
-	public TrainController giveTC()
-	{
-		return tc;
-	}
-	
-	public TestController giveTestC()
-	{
-		return testC;
-	}
-
-	public StanfordCoreNLP getNLP()
-	{
-		return pipeline;
-	}
-
-	public void createTranslateNGrams(String textEng, PaginaTraducida actual)
-	{
-		System.out.println("TranslateRAW TEXT:"+ textEng);
 		Annotation documentEng = new Annotation(textEng);
 
 		pipeline.annotate(documentEng);
 
 		List<CoreMap>  sentEng = documentEng.get(SentencesAnnotation.class);
 
-		System.out.println("TranslateCOREMAP TEXT:"+ sentEng);
-		//Different size of sentences
-
-
-		int i;
-		int min = sentEng.size();
-		System.out.println("SIZE MIN TRANSLATE: "+min);
-		for(i=0;i<min;i++)
+		int i ;
+		int tam = sentEng.size();
+		for(i=0;i<tam;i++)
 		{
 
-			//PRINTS SENTENCES TO STRINGS
-			//	if(sentEsp.size()>) why dis no?
 			CoreMap eng = 	sentEng.get(i);
 			List<CoreLabel> englishSent =  eng.get(CoreAnnotations.TokensAnnotation.class);
-
-			//TOKENSIZE
-			System.out.println("TranslateSizeEng: "+englishSent.size());
-			//loopNGrams(englishSent,spanishSent);
-			System.out.println("TranslateTokensEng: "+ englishSent);
-
-			addNgramsTranslate(englishSent,actual);
+			model1.translate(englishSent,actual);
 		}
+
+		
+
+
 	}
-	public void setTestController(TestController tc)
+
+
+
+public static void main (String[] args)
+{
+	//String testEng = "Unity uses <span class=\"doc-keyword\">Animation Layers</span> for managing complex state machines for different body parts. An example of this is if you have a lower-body layer for walking-jumping, and an upper-body layer for throwing objects / shooting.";
+	//String testEsp = "Unity usa <span class=\"doc-keyword\">Animation Layers</span> para manejar state machines complejos para differente partes del cuerpo. Un ejemplo de esto es si se tiene una capa inferior de cuerpo para caminar-saltar, y una capa superior de cuerpo para tirar objetos / disparar.";
+
+	//new CoreNLP(testEng,testEsp);
+}
+
+private void loopNGrams(List englishSent, List spanishSent)
+{
+	int min = Math.min(englishSent.size(),spanishSent.size());
+	int i;
+	//Have to think of somethin (look above) to fix the different sizes
+	for(i = 0; i<min;i++)
 	{
-		if(testC==null)
-		{
-			testC = tc;
-		}
-		else
-		{
-			System.out.println("Test controller already exists");
-		}
-	
+		//It is object,but object of what type
+		//Workaround quick make it tostring
+		//PairNGram pair = new PairNGram(englishSent.get(i).toString(),spanishSent.get(i).toString());
 	}
+
+}
+
+
+//CHECK GOOD LOOKS LIKE YOUR ARE ADDING THE SAME NGRAMS
+private void addNgrams(List<CoreLabel> englishSent , List<CoreLabel> spanishSent)
+{
+	Grams gr =  new Grams(3);
+	gr.operate(englishSent, spanishSent);
+	tc.addPair(gr.getEngGrams(),	gr.getEspGrams());
+}
+
+private void addNgramsTranslate(List<CoreLabel> englishSent, PaginaTraducida actual )
+{
+	Grams gr =  new Grams(3,true);
+	gr.translate(englishSent);
+	if(testC!=null)
+	{
+		testC.traducir(gr.getTranslate(),actual);
+
+	}
+
+}
+
+public TrainController giveTC()
+{
+	return tc;
+}
+
+public TestController giveTestC()
+{
+	return testC;
+}
+
+public StanfordCoreNLP getNLP()
+{
+	return pipeline;
+}
+
+public void createTranslateNGrams(String textEng, PaginaTraducida actual)
+{
+	System.out.println("TranslateRAW TEXT:"+ textEng);
+	Annotation documentEng = new Annotation(textEng);
+
+	pipeline.annotate(documentEng);
+
+	List<CoreMap>  sentEng = documentEng.get(SentencesAnnotation.class);
+
+	System.out.println("TranslateCOREMAP TEXT:"+ sentEng);
+	//Different size of sentences
+
+
+	int i;
+	int min = sentEng.size();
+	System.out.println("SIZE MIN TRANSLATE: "+min);
+	for(i=0;i<min;i++)
+	{
+
+		//PRINTS SENTENCES TO STRINGS
+		//	if(sentEsp.size()>) why dis no?
+		CoreMap eng = 	sentEng.get(i);
+		List<CoreLabel> englishSent =  eng.get(CoreAnnotations.TokensAnnotation.class);
+
+		//TOKENSIZE
+		System.out.println("TranslateSizeEng: "+englishSent.size());
+		//loopNGrams(englishSent,spanishSent);
+		System.out.println("TranslateTokensEng: "+ englishSent);
+
+		addNgramsTranslate(englishSent,actual);
+	}
+}
+public void setTestController(TestController tc)
+{
+	if(testC==null)
+	{
+		testC = tc;
+	}
+	else
+	{
+		System.out.println("Test controller already exists");
+	}
+
+}
 
 }
 
