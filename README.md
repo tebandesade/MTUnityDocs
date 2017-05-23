@@ -25,6 +25,6 @@ As a result, each alignment proposal (WordPair wp) will have a probability calcu
 Once the system has stopped extracting the alignment pairs with the highest probability, it will update its dictionary with the word pairs stored in each alignment proposal. 
 When the system updates the dictionary, it will also have the likelihood of each word pair updated.
 
-4.Translation
+4. Translation
 The system first receives as input the English testing files and later analyzes it with NLP similar to the way the system did at the beginning of the pipeline -- extracting English tokenized text. 
- Each word in each English sentence of the text will be translated according to the dictionary that the system has by getting the Spanish word that has the maximum likelihood probability of the given English word. 
+Each word in each English sentence of the text will be translated according to the dictionary that the system has by getting the Spanish word that has the maximum likelihood probability of the given English word. 
